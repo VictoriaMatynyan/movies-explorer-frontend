@@ -1,0 +1,62 @@
+.nav-tab {
+    display: flex;
+    margin: 146px 0 25px;
+}
+
+.nav-tab__button {
+    text-decoration: none;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+    background-color: transparent;
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 10px 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    cursor: pointer;
+}
+
+.nav-tab__button:hover {
+    opacity: 0.8;
+}
+
+.nav-tab__list {
+    display: none;
+} 
+
+.nav-tab__list_opened {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 30px;
+    gap: 30px;
+    align-self: center;
+}
+
+.nav-tab__item {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.nav-tab__link {
+    text-decoration: none;
+    opacity: 1;
+    color: #fff;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+.nav-tab__link:hover {
+    border-bottom:  rgba(255, 255, 255, 0.7) 1px solid;
+    opacity: 0.7;
+}

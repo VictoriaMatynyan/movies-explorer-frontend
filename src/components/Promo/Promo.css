@@ -1,0 +1,70 @@
+.promo {
+    background-color: #073042;
+}
+
+.promo__container {
+    padding: 75px 70px 50px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.promo__title {
+    color: #fff;
+    max-width: 640px;
+    min-height: 174px;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+}
+
+.promo__text {
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 310px;
+    padding-top: 36px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+}
+
+.promo__logo {
+    background: url('../../images/landing_logo_web.svg') no-repeat center;
+    width: 310px;
+    min-height: 304px;
+    position: absolute;
+    top: 75px;
+    right: 70px;
+}
+
+.promo__link {
+    text-decoration: none;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+    background-color: transparent;
+    border-radius: 3px;
+    margin: 146px 0 25px;
+    max-width: 129px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 10px 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    cursor: pointer;
+}
+
+.promo__link:hover {
+    opacity: 0.7;
+}
