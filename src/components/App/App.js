@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 import './App.css';
 
@@ -35,14 +36,15 @@ function App() {
         path="/"
         element={<Main />}
       />
-      
       <Route
         path="/movies"
         element={<Movies
-          loggedIn={loggedIn} 
-      />}
+          loggedIn={loggedIn} />}
       />
-      
+      <Route
+        path="/saved-movies"
+        element={<SavedMovies loggedIn={loggedIn} />}
+      />
       </Routes>
       </div>
     </div>

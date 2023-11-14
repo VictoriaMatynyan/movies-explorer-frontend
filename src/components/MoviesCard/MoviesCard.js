@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { savedMovies } from "../../utils/movies";
 import "./MoviesCard.css";
 
 const MoviesCard = ({ movieCard }) => {
@@ -8,10 +9,6 @@ const MoviesCard = ({ movieCard }) => {
     // функция сохранения фильмов
     function onSaveToggle() {
         setIsSaved(!isSaved);
-    };
-
-    function onRemove() {
-        setIsSaved(false);
     };
 
     const location = useLocation();
@@ -35,7 +32,6 @@ const MoviesCard = ({ movieCard }) => {
                 <button
                 className="movies-card__delete-button"
                 type="button"
-                onClick={onRemove}
             >
                 </button>
             )}

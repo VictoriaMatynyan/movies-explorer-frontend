@@ -15,7 +15,7 @@ const Header = ({ loggedIn }) => {
     // создаём переменную для отображения нужной шапки
     const location = useLocation();
 
-    const authorizedPathname = '/movies' || '/saved-movies' || '/profile';
+    const authorizedPathname = ['/movies', '/saved-movies', '/profile'];
 
     return (
         <header className="header">
@@ -34,7 +34,7 @@ const Header = ({ loggedIn }) => {
                 </div>
                 ) :
                 (
-                    <div className={`${location.pathname === authorizedPathname ? 'header__auth-container' : 'header__auth-container__landing'}`}>
+                    <div className={`${authorizedPathname.includes(location.pathname) ? 'header__auth-container' : 'header__auth-container__landing'}`}>
                         <Logo />
                         <div className="header__nav-container">
                             <nav className="header__nav">
@@ -46,7 +46,7 @@ const Header = ({ loggedIn }) => {
                                 </NavLink>
                             </nav> 
                             <div className="header__button-containter">
-                            <Link to="profile" className={`${location.pathname === authorizedPathname ? 'header__profile-button_authorized' : 'header__profile-button_landing'}`} />
+                            <Link to="profile" className={`${authorizedPathname.includes(location.pathname) ? 'header__profile-button_authorized' : 'header__profile-button_landing'}`} />
                             {!isBurgerMenuOpen && (
                             <button className="header__burger-button"
                             type="button" 
