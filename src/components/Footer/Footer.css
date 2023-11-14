@@ -1,7 +1,6 @@
 .footer {
-    padding: 70px 70px 20px;
+    padding: 79px 0px 20px;
 }
-/* в макете верхний padding был 79px, но пришлось уменьшить, чтобы на самом деле ему соответствовать */
 
 .footer__title {
     color: #8B8B8B;

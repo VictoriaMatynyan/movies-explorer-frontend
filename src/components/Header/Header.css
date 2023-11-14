@@ -2,22 +2,24 @@
     height: 100%;
 }
 
-.header__container_auth, .header__container_landing, .header__container_authorized {
-    min-height: 74px;
+.header__container-unauth, .header__auth-container__landing, .header__auth-container {
     display: flex;
+    min-height: 74px;
     justify-content: space-between;
-    margin: 0;
     padding: 0 70px;
     align-items: center;
-    box-sizing: border-box;
 }
 
-.header__container_auth, .header__container_landing {
+.header__auth-container {
+    background-color: #202020;
+}
+
+.header__container-unauth, .header__auth-container__landing {
     background-color: #073042;
 }
 
-.header__container_authorized {
-    background-color: #202020;
+.header__nav-container {
+    display: flex;
 }
 
 .header__auth-nav {
@@ -52,6 +54,32 @@
     opacity: 0.7;
 }
 
+
+.header__nav-link {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: right;
+    color: #fff;
+    align-self: center;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+.header__nav-link.active {
+    font-weight: 500;
+}
+
+.header__nav-link:hover {
+    opacity: 0.7;
+}
+
 .header__signin-button {
     text-decoration: none;
     background-color: #3DDC84;
@@ -80,14 +108,13 @@
     opacity: 0.8;
 }
 
-.header__nav-link {
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    text-align: right;
-    color: #fff;
-    align-self: center;
+.header__button-containter {
+    display: flex;
+}
+
+.header__profile-button_landing, .header__profile-button_authorized {
+    width: 100px;
+    height: 32px;
     opacity: 1;
     transition: opacity 0.3s ease-in;
     -webkit-transition: opacity 0.3s ease-in;
@@ -97,14 +124,16 @@
     cursor: pointer;
 }
 
-.header__button-containter {
-    display: flex;
+.header__profile-button_landing:hover, .header__profile-button_authorized:hover {
+    opacity: 0.8;
 }
 
-.header__profile-button {
+.header__profile-button_landing {
     background: url('../../images/landing_profile_button.svg') no-repeat center;
-    width: 100px;
-    height: 32px;
+}
+
+.header__profile-button_authorized {
+    background: url('../../images/main_profile_button.svg') no-repeat center;
 }
 
 .header__burger-button {

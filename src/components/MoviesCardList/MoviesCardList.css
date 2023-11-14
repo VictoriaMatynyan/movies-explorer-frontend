@@ -1,0 +1,33 @@
+.movies-elements {
+    padding-top: 70px;
+    padding-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(342px, 360px));
+    grid-template-rows: repeat(4, minmax(309px, 319px));
+    gap: 32px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1230px) {
+    .movies-elements {
+        grid-template-columns: repeat(auto-fit, minmax(316px, 1fr));
+        grid-template-rows: repeat(4, 1fr);
+        gap: 32px;
+    }
+}
+
+@media screen and (max-width: 1151px) {
+    .movies-elements {
+        grid-template-columns: repeat(auto-fit, minmax(273px, 1fr));
+        grid-template-rows: repeat(4, 1fr);
+        gap: 32px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .movies-elements {
+        grid-template-columns: repeat(auto-fit, minmax(231px, 1fr));
+        grid-template-rows: repeat(4, 1fr);
+        gap: 32px;
+    }
+}

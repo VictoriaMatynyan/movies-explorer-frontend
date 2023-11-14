@@ -8,7 +8,7 @@ const Portfolio = () => {
             <ul className="portfolio__content">
                 <li className="portfolio__subtitle">
                     <a
-                    href="https://victoriamatynyan.github.io/react-mesto-auth/" 
+                    href="https://victoriamatynyan.github.io/how-to-learn/" 
                     className="portfolio__link" 
                     target="_blank" 
                     rel="noreferrer">
@@ -28,7 +28,7 @@ const Portfolio = () => {
                 </li>    
                 <li className="portfolio__subtitle">
                 <a
-                    href="https://victoriamatynyan.github.io/how-to-learn/" 
+                    href="https://victoriamatynyan.github.io/react-mesto-auth/" 
                     className="portfolio__link" 
                     target="_blank" 
                     rel="noreferrer">
