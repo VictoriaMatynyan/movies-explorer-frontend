@@ -7,10 +7,10 @@ const SearchForm = ({ onClick }) => {
         <section className="search-form">
             <div className="search-form__container">
                 <form className="search-form__form" name="search-form">
-                    <label className="search-form__label" htmlFor="search">
+                    <label className="search-form__label" htmlFor="search-form">
                         <input
                             className="search-form__input"
-                            id="search"
+                            id="search-form"
                             type="text"
                             placeholder="Фильм"
                             autoComplete="off"
