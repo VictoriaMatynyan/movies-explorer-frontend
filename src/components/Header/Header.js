@@ -41,12 +41,12 @@ const Header = ({ loggedIn }) => {
                                 <NavLink to="/movies" className="header__nav-link">
                                     Фильмы
                                 </NavLink>
-                                <NavLink to="saved-movies" className="header__nav-link">
+                                <NavLink to="/saved-movies" className="header__nav-link">
                                     Сохранённые фильмы
                                 </NavLink>
                             </nav> 
                             <div className="header__button-containter">
-                            <Link to="profile" className={`${authorizedPathname.includes(location.pathname) ? 'header__profile-button_authorized' : 'header__profile-button_landing'}`} />
+                            <Link to="/profile" className={`${authorizedPathname.includes(location.pathname) ? 'header__profile-button_authorized' : 'header__profile-button_landing'}`} />
                             {!isBurgerMenuOpen && (
                             <button className="header__burger-button"
                             type="button" 

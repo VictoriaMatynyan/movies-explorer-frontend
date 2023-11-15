@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 import './App.css';
 
@@ -31,11 +33,10 @@ function App() {
   return (
     <div className="page">
       <div className="page__container">
-      <Header loggedIn={loggedIn}  />
       <Routes>
       <Route
         path="/"
-        element={<Main />}
+        element={<Main loggedIn={loggedIn} />}
       />
       <Route
         path="/movies"
@@ -48,7 +49,15 @@ function App() {
       />
       <Route
         path="/profile"
-        element={<Profile />}
+        element={<Profile loggedIn={loggedIn} />}
+      />
+      <Route
+        path="/signup"
+        element={<Register />}
+      />
+      <Route
+        path="/signin"
+        element={<Login />}
       />
       </Routes>
       </div>

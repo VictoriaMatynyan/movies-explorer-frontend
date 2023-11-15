@@ -1,6 +1,9 @@
 .movies {
-    padding: 70px 70px 10px;
     margin: 0 auto;
+}
+
+.movies__container{
+    padding: 70px 70px 10px;
 }
 
 .movies__button-container {

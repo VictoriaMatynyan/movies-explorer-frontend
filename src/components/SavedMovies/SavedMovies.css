@@ -1,4 +1,7 @@
 .saved-movies {
-    padding: 70px 70px 10px;
     margin: 0 auto;
+}
+
+.saved-movies__container {
+    padding: 70px 70px 10px;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -9,6 +10,7 @@ import './Movies.css';
 
 const Movies = ({ loggedIn }) => {
     const [moviesLoading, setMoviesLoading] = useState(false);
+    const firstTwelveMovies = movies.slice(0, 12);
     
     function handleMoviesLoading() {
         setMoviesLoading(true);
@@ -18,20 +20,23 @@ const Movies = ({ loggedIn }) => {
 
     return (
             loggedIn ? (
-            <section className="movies">
-            <SearchForm onClick={handleMoviesLoading} />
-             { moviesLoading ? <Preloader /> : '' }
-            <MoviesCardList movies={movies} />
-            <div className="movies__button-container">
-                {location.pathname === '/movies' ?
-                    (<button
-                    className="movies__button"
-                    type="button"
-                >
-                    Еще
-                </button>) : ''}
-            </div>
-            <Footer />
+                <section className="movies">
+                    <Header loggedIn={loggedIn} />
+                    <div className="movies__container">
+                    <SearchForm onClick={handleMoviesLoading} />
+                    { moviesLoading ? <Preloader /> : '' }
+                    <MoviesCardList movies={firstTwelveMovies} />
+                    <div className="movies__button-container">
+                        {location.pathname === '/movies' ?
+                            (<button
+                            className="movies__button"
+                            type="button"
+                        >
+                            Еще
+                        </button>) : ''}
+                    </div>
+                </div>
+                <Footer />
         </section> ) : null
     )
 }

@@ -1,0 +1,68 @@
+.auth-nav { 
+    padding: 127px 0 70px;
+    width: 100%;
+}
+
+.auth-nav__button {
+    width: 100%;
+    padding: 14px 0 14px;
+    background-color: #4285F4;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.94px;
+    text-align: center;
+    border: none;
+    outline: none;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    cursor: pointer;
+}
+
+.auth-nav__button:hover {
+    opacity: 0.8;
+}
+
+.auth-nav__line {
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    gap: 6px;
+}
+
+.auth-nav__text {
+    color: #8B8B8B;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: left;
+}
+
+.auth-nav__link {
+    text-decoration: none;
+    color: #4285F4;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: right;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+.auth-nav__link:hover {
+    opacity: 0.7;
+}

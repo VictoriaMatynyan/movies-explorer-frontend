@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { savedMovies } from "../../utils/movies";
 import "./MoviesCard.css";
 
 const MoviesCard = ({ movieCard }) => {

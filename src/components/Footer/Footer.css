@@ -1,4 +1,8 @@
 .footer {
+    padding: 79px 70px 20px;
+}
+
+.footer__movies {
     padding: 79px 0px 20px;
 }
 

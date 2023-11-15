@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { savedMovies } from '../../utils/movies';
+import Header from "../Header/Header";
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -16,9 +17,12 @@ const SavedMovies = ({ loggedIn }) => {
     return (
         loggedIn ? (
             <section className="saved-movies">
-            <SearchForm onClick={handleMoviesLoading} />
-            { moviesLoading ? <Preloader /> : '' }
-            <MoviesCardList movies={savedMovies} />
+                <Header loggedIn={loggedIn}  />
+                <div className="saved-movies__container">
+                <SearchForm onClick={handleMoviesLoading} />
+                { moviesLoading ? <Preloader /> : '' }
+                <MoviesCardList movies={savedMovies} />
+                </div>
             <Footer />
         </section>
         ) : null

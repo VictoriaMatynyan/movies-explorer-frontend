@@ -62,6 +62,11 @@ export const movies = [
         image: moviePoster,
         duration: '1ч 10м',
     },
+    {
+        nameRU: 'В погоне за Бенкси',
+        image: moviePoster,
+        duration: '1ч 10м',
+    },
 ];
 
 export const savedMovies = [
