@@ -7,12 +7,27 @@
 .auth__label, .login__label {
     display: flex;
     flex-direction: column;
-    padding-bottom: 24px;
     font-size: 10px;
     font-weight: 400;
     line-height: 12px;
     text-align: left;
     color: #8B8B8B;
+}
+
+.auth__error-span{
+    display: block;
+    margin: 0;
+    padding-top: 6px;
+    min-height: 24px;
+}
+
+.auth__error-span_active {
+    color: #EE3465;
+    font-family: Inter;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
 }
 
 .auth__input, .login__input {
@@ -34,9 +49,53 @@
     border-bottom: 1px solid #4285F4;
 }
 
+.auth__input_type_error, .login__input_type_error {
+    color: #EE3465;
+}
+
+.auth__input_type_valid {
+    color: #fff;
+}
+
 .login__form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 70px;
+}
+
+.auth__submit-button, .login__submit-button {
+    width: 100%;
+    padding: 14px 0 14px;
+    background-color: #4285F4;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.94px;
+    text-align: center;
+    border: none;
+    outline: none;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    cursor: pointer;
+}
+
+.auth__submit-button:hover, .login__submit-button:hover {
+    opacity: 0.8;
+}
+
+.auth__submit-button {
+    margin-top: 127px;
+}
+
+.login__submit-button {
+    margin-top: 197px;
 }

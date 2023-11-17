@@ -1,35 +1,6 @@
 .auth-nav { 
-    padding: 127px 0 70px;
+    padding-bottom: 70px;
     width: 100%;
-}
-
-.auth-nav__button {
-    width: 100%;
-    padding: 14px 0 14px;
-    background-color: #4285F4;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16.94px;
-    text-align: center;
-    border: none;
-    outline: none;
-    opacity: 1;
-    transition: opacity 0.3s ease-in;
-    -webkit-transition: opacity 0.3s ease-in;
-    -moz-transition: opacity 0.3s ease-in;
-    -ms-transition: opacity 0.3s ease-in;
-    -o-transition: opacity 0.3s ease-in;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    cursor: pointer;
-}
-
-.auth-nav__button:hover {
-    opacity: 0.8;
 }
 
 .auth-nav__line {

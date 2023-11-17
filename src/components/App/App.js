@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-// import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 import './App.css';
 
@@ -24,11 +24,6 @@ function App() {
     setLoggedIn(true);
     navigate('/', { replace: true });
   }
-
-  // function handleSignOut() {
-  //   setLoggedIn(false);
-  //   navigate('/', { replace: true });
-  // }
 
   return (
     <div className="page">
@@ -53,11 +48,15 @@ function App() {
       />
       <Route
         path="/signup"
-        element={<Register />}
+        element={<Register onFormSubmit={handleSignUp} />}
       />
       <Route
         path="/signin"
-        element={<Login />}
+        element={<Login onFormSubmit={handleSignIn} />}
+      />
+      <Route
+        path="*"
+        element={<NotFoundPage />}
       />
       </Routes>
       </div>
