@@ -54,7 +54,7 @@ const Login = ({ onFormSubmit }) => {
                     required: true,
                     minLength: {
                         value: 6,
-                        message: 'Пароль должен содержать минимум 6 символов.',
+                        message: 'Пароль должен содержать минимум 8 символов.',
                     },
                     pattern: {
                         value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,

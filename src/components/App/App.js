@@ -12,7 +12,7 @@ import './App.css';
 
 function App() {
   //создаём стейт для проверки пользователя на авторизацию
-  const [loggedIn, setLoggedIn] = useState(true); // false
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
 

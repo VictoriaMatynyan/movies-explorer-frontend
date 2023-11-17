@@ -159,10 +159,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .header__nav {
-        display: none;
-    }
-    .header__profile-button {
+    .header__nav, .header__profile-button_authorized, .header__profile-button_landing {
         display: none;
     }
     .header__burger-button {

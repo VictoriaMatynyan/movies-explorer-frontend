@@ -1,131 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Header from "../Header/Header";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
 import './Profile.css';
 
 const Profile = ({ loggedIn }) => {
-    // const [name, setName] = useState("Виктория");
-    // const [email, setEmail] = useState("pochta@yandex.ru");
-    // const [enteredName, setEnteredName] = useState("");
+    const [name, setName] = useState("Виктория");
+    const [email, setEmail] = useState("pochta@yandex.ru");
     
-    // // добавляем валидацию формы
-    // // создаём состояния, которые покажут, были мы в инпуте или нет. При касании инпута, он будет true
-    // const [nameDirty, setNameDirty] = useState(false);
-    // const [emailDirty, setEmailDirty] = useState(false);
-    // // создаём состояния для отражения ошибки
-    // const [nameError, setNameError] = useState('');
-    // const [emailError, setEmailError] = useState('');
-    // // создаём состояние, которое отвечает за валидность формы в целом
-    // const [formValid, setFormValid] = useState(false);
+    const onFormSubmit = (profileName, profileEmail) => {
+        setName(profileName);
+        setEmail(profileEmail);
+    }
 
-    // const emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const {
+        register,
+        formState: {
+            errors
+        },
+        handleSubmit,
+        reset
+    } = useForm({
+        mode: 'onChange',
+    });
 
-    // // логика валидации поля Имени
-    // const validateName = (e) => {
-    //     setEnteredName(e.target.value);
-    //     if (e.target.value.length < 2 || e.target.value.length > 30) {
-    //         setNameError('Имя должно содержать от 2 до 30 символов');
-    //     } else {
-    //     setNameError('');
-    //     }
-    //     // setName(e.target.value);
-    //     // if (e.target.value.length < 2 || e.target.value.length > 30) {
-    //     //     setNameError('Имя должно содержать от 2 до 30 символов');
-    //     // } else {
-    //     // setNameError('');
-    //     // }
-    // }
-
-    // // логика валидации поля E-mail
-    // const validateEmail = (e) => {
-    //     setEmail(e.target.value);
-    //     if (e.target.value.match(emailRegEx)) {
-    //         setEmailError('');
-    //     } else {
-    //         setEmailError('Введите корректный e-mail');
-    //     }
-    // }
-    
-    // function handleChangeName(e) {
-    //     // setName(e.target.value);
-    //     setNameDirty(true);
-    //     setEnteredName(e.target.value);
-    //     validateName(e);
-    // }
-
-    // function handleChangeEmail(e) {
-    //     setEmail(e.target.value);
-    //     setEmailDirty(true);
-    //     validateEmail(e);
-    // }
-
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     setFormValid(true);
-    //     if (!nameError && !emailError) {
-    //         setFormValid(true);
-    //         setName(enteredName);
-    //         setEmail(e.target.email.value);
-    //     } else {
-    //         setFormValid(false);
-    //     }
-    // }
+    const onSubmit = ({ profileName, profileEmail }) => {
+        onFormSubmit(profileName, profileEmail);
+        reset();
+    }
 
     return (
         loggedIn ? (
             <section className="profile">
             <Header loggedIn={true} />
             <main className="profile__main">
-                <GreetingTitle greetingText="Привет, Виктория!" />
-                {/* <GreetingTitle greetingText={`Привет, ${name}!`} /> */}
+                <GreetingTitle greetingText={`Привет, ${name}!`} />
                 <form 
                 className="profile__form"
-                onSubmit={(e) => e.preventDefault()}>
-                    <label className="profile__label" htmlFor="profile-name">
+                onSubmit={handleSubmit(onSubmit)}>
+                    <label className="profile__label" htmlFor="profileName">
                         Имя
                         <input
                             className="profile__input"
-                            id="profile-name"
-                            name="name"
                             type="text"
-                            placeholder="Виктория"
-                            // value={enteredName}
-                            minLength={2}
-                            maxLength={30}
-                            required
-                            // onChange={}
+                            {...register('profileName', {
+                                required: true,
+                                minLength: {
+                                    value: 2,
+                                    message: 'Имя должно содержать минимум 2 символа.',
+                                },
+                                maxLength: {
+                                    value: 30,
+                                    message: 'Имя должно содержать максимум 30 символов.',
+                                },
+                                })}
+                            placeholder={name || "Виктория"}
                             autoComplete="off"
                         />
                     </label>
-                    {/* <span className="profile__input_error">{(nameDirty && nameError) && nameError}</span> */}
-                    <label className="profile__label" htmlFor="profile-email">
+                    <span className={`profile__error-span ${errors?.profileName && "profile__error-span_active"}`}>{errors?.profileName?.message}</span>
+                    <label className="profile__label" htmlFor="profileEmail">
                     E-mail
                         <input
-                            // onChange={}
                             className="profile__input"
-                            id="profile-email"
-                            name="email"
                             type="text"
-                            placeholder="pochta@yandex.ru"
-                            required
+                            {...register('profileEmail', {
+                                required: true,
+                                pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: 'Некорректный формат E-mail.',
+                                },
+                            })}
+                            placeholder={email || "pochta@yandex.ru"}
                             autoComplete="off"
                         />
                     </label>
-                    {/* <span className="profile__input_error">{(emailDirty && emailError) && emailError}</span> */}
-                </form>
-                <nav className="profile__nav">
+                    <span className={`profile__error-span ${errors?.profileEmail && "profile__error-span_active"}`}>{errors?.profileEmail?.message}</span>
                     <button
                         className="profile__button_type_edit"
                         type="submit"
-                        // onClick={}
+                        disabled={errors?.profileName || errors?.profileEmail}
                     >
                         Редактировать
                     </button>
-                    <Link to="/signin" className="profile__link">
-                        Выйти из аккаунта
-                    </Link>
-                </nav>
+                </form>
+                <Link to="/signin" className="profile__link">
+                    Выйти из аккаунта
+                </Link>
             </main>
         </section>
         ) : null
