@@ -164,8 +164,9 @@
     }
     .header__burger-button {
         display: flex;
-        margin-right: 30px;
     }
-    
+    .header__container-unauth, .header__auth-container__landing, .header__auth-container {
+        padding: 0 30px;
+    }
 }
 

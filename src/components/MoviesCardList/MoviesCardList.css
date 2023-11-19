@@ -29,3 +29,11 @@
         gap: 32px;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .movies-elements {
+        grid-template: repeat(auto-fit, 309px) / repeat(2, 342px);
+        column-gap: 24px;
+        row-gap: 35px;
+    }
+}

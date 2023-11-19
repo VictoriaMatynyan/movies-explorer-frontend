@@ -17,7 +17,7 @@ const Profile = ({ loggedIn }) => {
     const {
         register,
         formState: {
-            errors
+            errors, isValid
         },
         handleSubmit,
         reset
@@ -78,9 +78,9 @@ const Profile = ({ loggedIn }) => {
                     </label>
                     <span className={`profile__error-span ${errors?.profileEmail && "profile__error-span_active"}`}>{errors?.profileEmail?.message}</span>
                     <button
-                        className="profile__button_type_edit"
+                        className={`profile__button_type_edit ${!isValid && "profile__button_type_edit_disabled"}`}
                         type="submit"
-                        disabled={errors?.profileName || errors?.profileEmail}
+                        disabled={!isValid}
                     >
                         Редактировать
                     </button>

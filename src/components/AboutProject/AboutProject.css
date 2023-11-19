@@ -61,3 +61,14 @@
     color: #fff;
     background-color: #303030;
 }
+
+@media screen and (max-width: 1088px) {
+    .about-project {
+        padding: 90px 50px;
+    }
+
+    .about-project__content {
+        column-gap: 30px;
+        row-gap: 22px;
+    }
+}

@@ -94,25 +94,10 @@
 }
 /* 17px - отступ у инпутов */
 
-.profile__button_type_save {
-    margin-top: calc(223px - 17px);
-    padding: 14px 0;
-    width: 100%;
-    border: none;
-    outline: none;
-    background-color: #3456F3;
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 17px;
-    text-align: center;
-    color: #fff;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
+.profile__button_type_edit_disabled {
+    opacity: 0.2;
+    
 }
-
 .profile__button_type_edit:hover {
     opacity: 0.8;
 }
