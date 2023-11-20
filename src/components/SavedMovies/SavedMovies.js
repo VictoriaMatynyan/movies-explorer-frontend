@@ -21,7 +21,7 @@ const SavedMovies = ({ loggedIn }) => {
                 <div className="saved-movies__container">
                 <SearchForm onClick={handleMoviesLoading} />
                 { moviesLoading ? <Preloader /> : '' }
-                <MoviesCardList movies={savedMovies} />
+                <MoviesCardList movies={savedMovies.slice(0, 3)} />
                 </div>
             <Footer />
         </section>

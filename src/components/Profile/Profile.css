@@ -123,3 +123,15 @@
 .profile__link:hover {
     opacity: 0.7;
 }
+
+@media screen and (max-width: 768px) {
+    .profile__main {
+        padding-top: calc(236px - 40px);
+    }
+    .profile__form {
+        padding-top: calc(96px - 40px);
+    }
+    .profile__button_type_edit {
+        padding-top: calc(210px - 17px);
+    }
+}

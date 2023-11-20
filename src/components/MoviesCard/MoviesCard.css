@@ -80,3 +80,15 @@
 .movies-card__delete-button {
     background: url(../../images/saved_delete_button.svg) no-repeat center;
 }
+
+@media screen and (max-width: 768px) {
+    .movies-card:nth-child(n+9) {
+        display: none; /* скроем карточки, начиная с 9й, если ширина экрана меньше 768px */
+    } 
+}
+
+@media screen and (max-width: 320px) {
+    .movies-card:nth-child(n+6) {
+        display: none; /* скроем карточки, начиная с 6й, если ширина экрана меньше 320px */
+    } 
+}

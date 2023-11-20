@@ -12,3 +12,8 @@
     align-items: flex-start;
 }
 
+@media screen and (max-width: 768px) {
+    .register__container {
+        padding-top: 232px;
+    }
+}

@@ -10,7 +10,7 @@ import './Movies.css';
 
 const Movies = ({ loggedIn }) => {
     const [moviesLoading, setMoviesLoading] = useState(false);
-    const firstTwelveMovies = movies.slice(0, 12);
+    // const firstTwelveMovies = movies.slice(0, 12);
     
     function handleMoviesLoading() {
         setMoviesLoading(true);
@@ -25,7 +25,7 @@ const Movies = ({ loggedIn }) => {
                     <div className="movies__container">
                     <SearchForm onClick={handleMoviesLoading} />
                     { moviesLoading ? <Preloader /> : '' }
-                    <MoviesCardList movies={firstTwelveMovies} />
+                    <MoviesCardList movies={movies} />
                     <div className="movies__button-container">
                         {location.pathname === '/movies' ?
                             (<button

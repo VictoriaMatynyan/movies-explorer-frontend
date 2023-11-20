@@ -68,4 +68,24 @@
     .techs {
         padding: 90px 50px;
     }
+    .techs__subtitle {
+        padding-top: 80px;
+    }
+    .techs__text {
+        padding-top: 22px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .techs__list {
+        padding-top: 83px;
+        flex-wrap: nowrap;
+    }
+    .techs__item {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 15px;
+        letter-spacing: -0.04em;
+        width: 84px;
+        height: 57px;
+    }
 }

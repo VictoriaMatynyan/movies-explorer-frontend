@@ -48,6 +48,7 @@
     border-radius: 3px;
     margin: 146px 0 25px;
     max-width: 129px;
+    max-height: 36px;
     opacity: 1;
     transition: opacity 0.3s ease-in;
     -webkit-transition: opacity 0.3s ease-in;
@@ -78,7 +79,6 @@
         align-self: center;
         position: static;
     }
-
     .promo__title {
         font-size: 40px;
         font-weight: 400;
@@ -88,13 +88,20 @@
         min-height: 100px;
         padding-top: 48px;
     }
-
     .promo__text {
         padding-top: 22px;
         text-align: center;
     }
-
     .promo__link {
-        margin: 92px 0 25px;
+        margin: 92px 0 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .promo__container {
+        padding-top: 140px;
+    }
+    .promo__text {
+        max-width: 260px;
     }
 }
