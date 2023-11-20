@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* victoria@51.250.5.154:/home/victoria/movies-explorer-frontend"
+    "deploy": "npm run build && scp -r ./build/* victoria@158.160.108.50:/home/victoria/movies-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [
