@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './AuthForm.css';
 
-const AuthForm = ({ children, buttonText, onSubmit }) => {
+const AuthForm = ({ children, buttonText, disabled, buttonClassName, onSubmit }) => {
     const location = useLocation();
 
     return (
@@ -12,8 +12,9 @@ const AuthForm = ({ children, buttonText, onSubmit }) => {
         onSubmit={onSubmit}>
             {children}
             <button
-                className={location.pathname === "/signup" ? "auth__submit-button" : "login__submit-button"}
-                type="submit">
+                className={buttonClassName}
+                type="submit"
+                disabled={disabled}>
                 {buttonText}
             </button>
         </form>   

@@ -45,7 +45,7 @@
     text-align: left;
 }
 
-.auth__input:focus {
+.auth__input:focus, .login__input:focus {
     border-bottom: 1px solid #4285F4;
 }
 
@@ -90,6 +90,10 @@
 
 .auth__submit-button:hover, .login__submit-button:hover {
     opacity: 0.8;
+}
+
+.auth__submit-button_disabled, .login__submit-button_disabled {
+    opacity: 0.2;
 }
 
 .auth__submit-button {

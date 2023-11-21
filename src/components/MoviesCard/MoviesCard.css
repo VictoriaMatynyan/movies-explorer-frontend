@@ -11,6 +11,10 @@
     -o-border-radius: 6px;
 }
 
+.movies-card:nth-child(n+13) {
+    display: none; /* скроем карточки, начиная с 13й, если ширина экрана меньше или больше 1280px */
+}
+
 .movies-card__info {
     display: flex;
     padding: 18px;
@@ -84,11 +88,11 @@
 @media screen and (max-width: 768px) {
     .movies-card:nth-child(n+9) {
         display: none; /* скроем карточки, начиная с 9й, если ширина экрана меньше 768px */
-    } 
+    }
 }
 
 @media screen and (max-width: 320px) {
     .movies-card:nth-child(n+6) {
         display: none; /* скроем карточки, начиная с 6й, если ширина экрана меньше 320px */
-    } 
+    }
 }

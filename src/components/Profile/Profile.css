@@ -43,6 +43,14 @@
     border: none;
 }
 
+.profile__label:focus-within {
+    border-bottom: 1px solid #4285F4;
+}
+
+.profile__label:focus-within:last-of-type {
+    border: none;
+}
+
 .profile__input {
     background-color: transparent;
     border: none;
@@ -96,7 +104,6 @@
 
 .profile__button_type_edit_disabled {
     opacity: 0.2;
-    
 }
 .profile__button_type_edit:hover {
     opacity: 0.8;

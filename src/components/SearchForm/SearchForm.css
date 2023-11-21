@@ -15,6 +15,10 @@
     -webkit-border-radius: 8px;
 }
 
+.search-form__container:focus-within {
+    outline-color: #4285F4;
+}
+
 .search-form__form {
     display: flex;
 }
