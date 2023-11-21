@@ -10,9 +10,9 @@
 }
 
 .promo__logo {
-    background: url('../../images/landing_logo_web.svg') no-repeat center;
+    background: url('../../images/landing_logo_web.svg') no-repeat center/cover;
     width: 310px;
-    min-height: 304px;
+    height: 304px;
     position: absolute;
     top: 75px;
     right: 70px;
@@ -27,6 +27,7 @@
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
+    letter-spacing: -0.04em;
 }
 
 .promo__text {
@@ -103,5 +104,29 @@
     }
     .promo__text {
         max-width: 260px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .promo__logo {
+        width: 210px;
+        height: 206px;
+    }
+    .promo__container {
+        padding: 70px 14px 30px;
+    }
+    .promo__title {
+        font-size: 30px;
+        line-height: 38px;
+        /* max-width: 680px;
+        min-height: 100px; */
+        padding-top: 44px;
+    }
+    .promo__text {
+        padding-top: 24px;
+        /* max-width: 260px; */
+    }
+    .promo__link {
+        margin: 80px 0 0;
     }
 }

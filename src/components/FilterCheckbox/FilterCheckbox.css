@@ -85,5 +85,14 @@
     .filter-checkbox {
         padding: 26px 0 51px;
     }
-    
+}
+
+@media screen and (max-width: 468px) {
+    .filter-checkbox {
+        padding: 30px 0 63px;
+    }
+    .filter-checkbox__text {
+        font-size: 11px;
+        line-height: 18px;
+    }
 }

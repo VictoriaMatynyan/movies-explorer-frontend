@@ -17,3 +17,11 @@
         padding-top: 232px;
     }
 }
+
+@media screen and (max-width: 485px) {
+    .register__container {
+        width: 260px;
+        padding-top: 56px;
+        align-items: center;
+    }
+}

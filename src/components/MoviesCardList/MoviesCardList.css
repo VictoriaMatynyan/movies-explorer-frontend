@@ -33,9 +33,28 @@
 @media screen and (max-width: 768px) {
     .movies-elements {
         padding-bottom: 30px;
-        grid-template: repeat(auto-fit, 309px) / repeat(2, 342px);
+        grid-template: repeat(4, 309px) / repeat(2, 342px);
         column-gap: 24px;
         row-gap: 35px;
     }
-    
+}
+
+@media screen and (max-width: 767px) {
+    .movies-elements {
+        grid-template-columns: repeat(2, minmax(min-content, max-content));
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .movies-elements {
+        grid-template-columns: 300px;
+        padding-top: 40px;
+    } 
+}
+
+@media screen and (max-width: 468px) {
+    .movies-elements {
+        grid-template-rows: auto;
+        row-gap: 16px;
+    } 
 }

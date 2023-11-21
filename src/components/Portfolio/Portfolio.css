@@ -60,6 +60,7 @@
 
 .portfolio__arrow {
     font-size: 30px;
+    line-height: 60px;
     font-weight: 400;
     line-height: 60px;
     letter-spacing: -0.04em;
@@ -73,5 +74,28 @@
     }
     .portfolio__subtitle {
         padding: 19px 0 10px;
+    }
+    .portfolio__arrow {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .portfolio__content {
+        padding-top: 40px;
+    }
+    .portfolio__text, .portfolio__arrow {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio__title {
+        font-size: 14px;
+        line-height: 20px;     
+    }
+    .portfolio__subtitle {
+        padding: 19px 0;
     }
 }

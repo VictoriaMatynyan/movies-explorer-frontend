@@ -129,7 +129,6 @@
         font-size: 12px;
         font-weight: 400;
         line-height: 18px;
-        text-align: left;
         padding-top: 20px;
         max-width: 364px;
     }
@@ -138,5 +137,60 @@
     }
     .about-me__link {
         padding-top: 87px;
+    }
+}
+
+@media screen and (max-width: 601px) {
+    .about-me__containter {
+        padding-bottom: 70px;
+    }
+    .about-me__name {
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 36.31px;
+    }
+    .about-me__about {
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 16px;
+        padding-top: 20px;
+    }
+    .about-me__text {
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 16px;
+        max-width: 292px;
+    }
+    .about-me__link {
+        padding-top: 40px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .about-me__containter {
+        flex-direction: column-reverse;
+        align-items: center;
+        padding-bottom: 40px;
+    }
+    .about-me__avatar {
+        width: 292px;
+        height: 352px;
+    }
+    .about-me__name {
+        padding-top: 40px;
+    }
+}
+
+@media screen and (max-width: 402px) {
+    .about-me {
+        padding: 82px 14px;
+    }
+    .about-me__title {
+        padding-bottom: 28px;
+        font-size: 18px;
+        line-height: 21.78px;
+    }
+    .about-me__containter {
+        padding: 60px 0 70px;
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -12,6 +12,26 @@ const Movies = ({ loggedIn }) => {
     const [moviesLoading, setMoviesLoading] = useState(false);
     // const firstTwelveMovies = movies.slice(0, 12);
     
+    const [displayedMovies, setDisplayedMovies] = useState(12); // по умолчанию отображаем 12 карточки
+
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth <= 1280 && window.innerWidth > 768) {
+          setDisplayedMovies(12); // если ширина экрана <= 1280px, отображаем 12 карточек
+        } else if (window.innerWidth <= 768 && window.innerWidth > 321) {
+          setDisplayedMovies(8);
+        } else if (window.innerWidth <= 320) {
+          setDisplayedMovies(5);
+        }
+      };
+      // добавляем слушатель события изменения размера экрана при монтировании компонента
+      window.addEventListener('resize', handleResize);
+      // удаляем слушатель при размонтировании компонента
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []); // вызываем useEffect только при монтировании компонента
+
     function handleMoviesLoading() {
         setMoviesLoading(true);
     }
@@ -25,7 +45,7 @@ const Movies = ({ loggedIn }) => {
                     <div className="movies__container">
                     <SearchForm onClick={handleMoviesLoading} />
                     { moviesLoading ? <Preloader /> : '' }
-                    <MoviesCardList movies={movies} />
+                    <MoviesCardList movies={movies.slice(0, displayedMovies)} />
                     <div className="movies__button-container">
                         {location.pathname === '/movies' ?
                             (<button

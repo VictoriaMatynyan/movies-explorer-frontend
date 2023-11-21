@@ -37,6 +37,7 @@
     line-height: 20px;
     max-width: 550px;
     padding-top: 26px;
+    order: 2;
 }
 
 .about-project__milestones {
@@ -91,5 +92,59 @@
 @media screen and (max-width: 768px) {
     .about-project {
         padding-bottom: 85px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .about-project {
+        padding: 70px 18px 69px;
+    }
+    .about-project__subtitle {
+        padding-bottom: 28px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .about-project__text {
+        font-size: 11px;
+        line-height: 16px;
+    }
+    .about-project__milestones {
+        padding-top: 60px;
+    }
+}
+
+@media screen and (max-width: 464px) {
+    .about-project__content {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0;
+    }
+    .about-project__subtitle {
+        padding-bottom: 16px;
+    }
+    .about-project__text {
+        order: 0;
+        padding-bottom: 56px;
+    }
+    .about-project__text:last-of-type {
+        padding-bottom: 0;
+    }
+    .about-project__milestones {
+        grid-template-columns: 100px 1fr;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-project__title {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 28px;
+    }
+    .about-project__content {
+        padding-top: 60px;
+    }
+    .about-project__milestone {
+        font-size: 11px;
+        line-height: 13.31px;
     }
 }

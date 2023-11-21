@@ -35,7 +35,7 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    padding-bottom: 16px;
+    padding-bottom: 17px;
 }
 
 .profile__label:last-of-type {
@@ -71,7 +71,7 @@
     display: block;
     margin: 0;
     padding-top: 2px;
-    min-height: 17px;
+    min-height: 16px;
 }
 
 .profile__error-span_active {
@@ -83,7 +83,7 @@
 }
 
 .profile__button_type_edit {
-    padding-top: calc(220px - 17px);
+    padding-top: calc(220px - 16px);
     border: none;
     color: #fff;
     font-weight: 400;
@@ -140,5 +140,31 @@
     }
     .profile__button_type_edit {
         padding-top: calc(210px - 17px);
+    }
+}
+
+@media screen and (max-width: 565px) {
+    .profile__main {
+        padding-top: calc(70px - 40px);
+        width: 260px;
+    }
+    .profile__form {
+        padding-top: 0;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .profile__main {
+        padding-top: calc(70px - 50px);
+        width: 260px;
+    }
+    .profile__button_type_edit {
+        padding-top: calc(380px - 17px);
+        font-size: 12px;
+        line-height: 14.52px;      
+    }
+    .profile__link {
+        font-size: 12px;
+        line-height: 14.52px;
     }
 }

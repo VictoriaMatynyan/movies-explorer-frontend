@@ -137,3 +137,10 @@
         display: none;
     }
 }
+
+@media screen and (max-width: 380px) {
+    .navigation__container {
+        padding: 159px 14px 92px;
+        width: 320px;
+    }
+}

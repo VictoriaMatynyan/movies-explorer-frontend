@@ -137,7 +137,7 @@
 }
 
 .header__burger-button {
-    background: url('../../images/burger_menu.svg') center no-repeat;
+    background: url('../../images/burger_menu.svg') center/contain no-repeat;
     border: none;
     background-color: transparent;
     width: 44px;
@@ -167,6 +167,28 @@
     }
     .header__container-unauth, .header__auth-container__landing, .header__auth-container {
         padding: 0 30px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .header__auth-nav {
+        gap: 14px;
+    }
+    .header__link {
+        font-size: 10px;
+    }
+    .header__signin-button {
+        font-size: 10px;
+        height: 26px;
+        max-width: 54px;
+        padding: 5px 12px;
+    }
+    .header__container-unauth, .header__auth-container__landing, .header__auth-container {
+        padding: 0 14px;
+    }
+    .header__burger-button {
+        width: 40px;
+        height: 43px;
     }
 }
 

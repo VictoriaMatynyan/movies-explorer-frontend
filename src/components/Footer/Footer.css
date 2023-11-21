@@ -68,3 +68,34 @@
 }
 /* .footer на 768px padding: 79px 30px 20px, но я адаптировала под Perfect Pixel, т.к.
 с указанными в макете размерами сайт не совпадает с Perfect Pixel */
+
+@media screen and (max-width: 359px) {
+    .footer {
+        padding: 69px 10px 20px;  
+    }
+    .footer__title {
+        font-size: 12px;
+        line-height: 15px;
+        padding-bottom: 21px;
+    }
+    .footer__container {
+        padding-top: 30px;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .footer__links {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    .footer__link {
+        font-size: 12px;
+        line-height: 14.52px;
+    }
+    .footer__copyright {
+        font-size: 12px;
+        line-height: 15px;
+        padding-top: 30px;
+        color: #8B8B8B;
+    }
+}

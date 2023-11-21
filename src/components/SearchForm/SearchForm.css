@@ -69,3 +69,20 @@
 .search-form__button:hover {
     opacity: 0.8;
 }
+
+@media screen and (max-width: 468px) {
+    .search-form__container {
+        padding: 6px;
+        margin: 0 4px;
+    }
+    .search-form__input {
+        font-size: 16px;
+        line-height: 16px;
+    }
+    .search-form__button {
+        font-size: 14px;;
+        line-height: 18px;
+        padding: 13px 10px; 
+        min-width: 80px;     
+    }
+}

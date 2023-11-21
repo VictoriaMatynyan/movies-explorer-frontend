@@ -89,3 +89,44 @@
         height: 57px;
     }
 }
+
+@media screen and (max-width: 752px) {
+    .techs__list {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .techs {
+        padding: 70px 18px;
+    }
+    .techs__subtitle {
+        padding-top: 60px;
+        font-size: 30px;
+        line-height: 36.31px;
+    }
+    .techs__text {
+        padding-top: 24px;
+        font-size: 11px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .techs {
+        padding: 58px 18px;
+    } 
+    /* согласно шаблону padding-top = 70px, пришлось подогнать */
+    .techs__title {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid #000;
+        ;
+    }
+    .techs__list {
+        padding-top: 50px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }    
+}

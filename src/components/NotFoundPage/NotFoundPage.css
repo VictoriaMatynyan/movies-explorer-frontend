@@ -44,3 +44,15 @@
 .not-found-page__button:hover {
     opacity: 0.8;
 }
+
+@media screen and (max-width: 320px) {
+    .not-found-page__title {
+        font-size: 80px;
+        line-height: 96.82px;
+        padding-top: 329px;
+    }
+    .not-found-page__button {
+        padding: 284px 0 30px;
+    }
+    
+}

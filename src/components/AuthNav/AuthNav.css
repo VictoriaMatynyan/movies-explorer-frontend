@@ -37,3 +37,10 @@
 .auth-nav__link:hover {
     opacity: 0.7;
 }
+
+@media screen and (max-width: 485px) {
+    .auth-nav__text, .auth-nav__link {
+        font-size: 12px;
+        line-height: 14.52px;
+    }
+}

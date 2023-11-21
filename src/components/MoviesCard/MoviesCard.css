@@ -11,9 +11,6 @@
     -o-border-radius: 6px;
 }
 
-.movies-card:nth-child(n+13) {
-    display: none; /* скроем карточки, начиная с 13й, если ширина экрана меньше или больше 1280px */
-}
 
 .movies-card__info {
     display: flex;
@@ -85,14 +82,28 @@
     background: url(../../images/saved_delete_button.svg) no-repeat center;
 }
 
-@media screen and (max-width: 768px) {
-    .movies-card:nth-child(n+9) {
-        display: none; /* скроем карточки, начиная с 9й, если ширина экрана меньше 768px */
-    }
-}
 
-@media screen and (max-width: 320px) {
-    .movies-card:nth-child(n+6) {
-        display: none; /* скроем карточки, начиная с 6й, если ширина экрана меньше 320px */
+
+@media screen and (max-width: 468px) {
+    .movies-card__info {
+        padding: 14px;
+    }
+    .movies-card__title  {
+        font-size: 12px;
+    }
+    .movies-card__duration {
+        font-size: 10px;
+    }
+    .movies-card__image {
+        object-fit: contain;
+        height: 168px;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+    }
+    .movies-card__save-button_inactive, .movies-card__save-button_active, .movies-card__delete-button {
+        margin: 14px auto;
     }
 }
