@@ -2,7 +2,7 @@
     height: 100%;
 }
 
-.header__container-unauth, .header__auth-container__landing, .header__auth-container {
+.header__unauth-container, .header__auth-container__landing, .header__auth-container {
     display: flex;
     min-height: 74px;
     justify-content: space-between;
