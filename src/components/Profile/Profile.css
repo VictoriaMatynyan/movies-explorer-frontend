@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.profile__main {
+.profile__container {
     width: 410px;
     padding-top: calc(74px - 40px);
     padding-bottom: 70px;
@@ -132,7 +132,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .profile__main {
+    .profile__container {
         padding-top: calc(236px - 40px);
     }
     .profile__form {
@@ -144,7 +144,7 @@
 }
 
 @media screen and (max-width: 565px) {
-    .profile__main {
+    .profile__container {
         padding-top: calc(70px - 40px);
         width: 260px;
     }
@@ -154,7 +154,7 @@
 }
 
 @media screen and (max-width: 485px) {
-    .profile__main {
+    .profile__container {
         padding-top: calc(70px - 50px);
         width: 260px;
     }

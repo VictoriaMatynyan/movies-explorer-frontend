@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 // import { useForm } from "react-hook-form";
 import Logo from "../Logo/Logo";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
-import AuthForm from "../AuthForm/AuthForm";
+import Form from "../Form/Form";
 import AuthNav from "../AuthNav/AuthNav";
 import './Register.css';
 
 const Register = ({ onFormSubmit }) => {
     const [userData, setUserData] = useState({
-        authName: '',
-        authEmail: '',
-        authPassword: '',
+        regName: '',
+        regEmail: '',
+        regPassword: '',
     });
 
     const [dataDirty, setDataDirty] = useState(false);
@@ -27,7 +27,7 @@ const Register = ({ onFormSubmit }) => {
 
     // логика валидации поля Имени
     const validateName = (e) => {
-        setUserData({...userData, authName: e.target.value});
+        setUserData({...userData, regName: e.target.value});
         if (!e.target.value) {
             setNameError('Поле не может быть пустым.');
         } else if (e.target.value.length < 2) {
@@ -40,7 +40,7 @@ const Register = ({ onFormSubmit }) => {
     }
 
     const validateEmail = (e) => {
-        setUserData({...userData, authEmail: e.target.value});
+        setUserData({...userData, regEmail: e.target.value});
         if (!e.target.value.match(regExEmail)) {
             setEmailError('Некорректный формат E-mail.');
         } else if (!e.target.value) {
@@ -51,7 +51,7 @@ const Register = ({ onFormSubmit }) => {
     }
 
     const validatePassword = (e) => {
-        setUserData({...userData, authPassword: e.target.value});
+        setUserData({...userData, regPassword: e.target.value});
         if (!e.target.value.match(regExPassword)) {
             setPasswordError('Пароль должен содержать минимум 8 символов.');
         } else if (!e.target.value) {
@@ -62,19 +62,19 @@ const Register = ({ onFormSubmit }) => {
     }
 
     function handleChangeName (e) {
-        setUserData({...userData, authName: e.target.value});
+        setUserData({...userData, regName: e.target.value});
         setDataDirty(true);
         validateName(e);
     }
 
     function handleChangeEmail(e) {
-        setUserData({...userData, authEmail: e.target.value});
+        setUserData({...userData, regEmail: e.target.value});
         setDataDirty(true);
         validateEmail(e);
     }
 
     function handleChangePassword(e) {
-        setUserData({...userData, authPassword: e.target.value});
+        setUserData({...userData, regPassword: e.target.value});
         setDataDirty(true);
         validatePassword(e);
     }
@@ -90,7 +90,7 @@ const Register = ({ onFormSubmit }) => {
 
     // валидация формы
     useEffect(() => {
-        if(nameError || emailError || passwordError || !userData.authName || !userData.authEmail || !userData.authPassword) {
+        if(nameError || emailError || passwordError || !userData.regName || !userData.regEmail || !userData.regPassword) {
             setFormValid(false);
         } else {
             setFormValid(true);
@@ -100,47 +100,50 @@ const Register = ({ onFormSubmit }) => {
     return (
         <section className="register">
             <div className="register__container">
-            <Logo />
-            <GreetingTitle greetingText="Добро пожаловать!" />
-            <AuthForm
+            <Logo className={"register__logo"} />
+            <GreetingTitle
+            className="register__greeting-title"
+            greetingText="Добро пожаловать!"
+            />
+            <Form
             onSubmit={handleSubmit}
             buttonText={"Зарегистрироваться"}
             disabled={!formValid}
-            buttonClassName={`auth__submit-button ${!formValid && "auth__submit-button_disabled"}`}>
-                <label className="auth__label">
+            buttonClassName={`register__submit-button ${!formValid && "register__submit-button_disabled"}`}>
+                <label className="register__form-label">
                     Имя
                     <input
-                    className={`auth__input ${(dataDirty && nameError) && "auth__input_type_error"}`}
+                    className={`register__form-input ${(dataDirty && nameError) && "register__form-input_type_error"}`}
                     type={"text"}
-                    value={userData.authName}
+                    value={userData.regName}
                     onChange={handleChangeName}
                     autoComplete="off"
                     />
                     </label>
-                    <span className="auth__error-span auth__error-span_active">{(dataDirty && nameError) && nameError}</span>
-                    <label className="auth__label">
+                    <span className="register__error-span register__error-span_active">{(dataDirty && nameError) && nameError}</span>
+                    <label className="register__form-label">
                         E-mail
                         <input
-                            className={`auth__input ${(dataDirty && emailError) && "auth__input_type_error"}`}
+                            className={`register__form-input ${(dataDirty && emailError) && "register__form-input_type_error"}`}
                             type="email"
-                            value={userData.authEmail}
+                            value={userData.regEmail}
                             onChange={handleChangeEmail}
                             autoComplete="off"
                         />
                     </label>
-                    <span className="auth__error-span auth__error-span_active">{(dataDirty && emailError) && emailError}</span>
-                    <label className="auth__label">
+                    <span className="register__error-span register__error-span_active">{(dataDirty && emailError) && emailError}</span>
+                    <label className="register__form-label">
                         Пароль
                         <input
-                            className={`auth__input ${(dataDirty && passwordError) && "auth__input_type_error"}`}
+                            className={`register__form-input ${(dataDirty && passwordError) && "register__form-input_type_error"}`}
                             type="password"
-                            value={userData.authPassword}
+                            value={userData.regPassword}
                             onChange={handleChangePassword}
                             autoComplete="off"
                         />
                     </label>
-                    <span className="auth__error-span auth__error-span_active">{(dataDirty && passwordError) && passwordError}</span>
-            </AuthForm>
+                    <span className="register__error-span register__error-span_active">{(dataDirty && passwordError) && passwordError}</span>
+            </Form>
             <AuthNav authText={"Уже зарегистрированы?"} linkText={"Войти"} />
             </div>
         </section>

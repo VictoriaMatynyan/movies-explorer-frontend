@@ -1,16 +1,16 @@
-.auth-nav { 
+.register__nav, .login__nav { 
     padding-bottom: 70px;
     width: 100%;
 }
 
-.auth-nav__line {
+.register__nav-line, .login__nav-line {
     display: flex;
     justify-content: center;
     padding-top: 16px;
     gap: 6px;
 }
 
-.auth-nav__text {
+.register__nav-text, .login__nav-text {
     color: #8B8B8B;
     font-size: 14px;
     font-weight: 400;
@@ -18,7 +18,7 @@
     text-align: left;
 }
 
-.auth-nav__link {
+.register__nav-link, .login__nav-link {
     text-decoration: none;
     color: #4285F4;
     font-size: 14px;

@@ -5,12 +5,12 @@ import './AuthNav.css';
 const AuthNav = ({ authText, linkText }) => {
     const location = useLocation();
     return (
-        <nav className="auth-nav">
-            <div className="auth-nav__line">
-                <p className="auth-nav__text">{authText}</p>
+        <nav className={location.pathname === '/signup' ? "register__nav" : "login__nav"}>
+            <div className={location.pathname === '/signup' ? "register__nav-line" : "login__nav-line"}>
+                <p className={location.pathname === '/signup' ? "register__nav-text" : "login__nav-text"}>{authText}</p>
                 <Link 
                 to={location.pathname === '/signup' ? '/signin' : '/signup'}
-                className="auth-nav__link">
+                className={location.pathname === '/signup' ? "register__nav-link" : "login__nav-link"}>
                     {linkText}
                 </Link>
             </div>

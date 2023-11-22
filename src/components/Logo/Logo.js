@@ -3,13 +3,14 @@ import './Logo.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 
-const Logo = () => {
+const Logo = ({className}) => {
+
     return (
         <Link to='/'>
             <img
                 src={logo}
                 alt="Логотип сайта, большая белая буква С на фоне зелёного кружка"
-                className="logo"
+                className={className}
             />
         </Link>
     )

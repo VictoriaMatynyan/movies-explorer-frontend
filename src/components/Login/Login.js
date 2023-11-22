@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { useForm } from "react-hook-form";
 import Logo from "../Logo/Logo";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
-import AuthForm from "../AuthForm/AuthForm";
+import Form from "../Form/Form";
 import AuthNav from "../AuthNav/AuthNav";
 import './Login.css';
 
@@ -80,36 +80,39 @@ const Login = ({ onFormSubmit }) => {
     return (
         <section className="login">
             <div className="login__container">
-            <Logo />
-            <GreetingTitle greetingText="Рады видеть!" />
-            <AuthForm
+            <Logo className={"login__logo"}/>
+            <GreetingTitle
+            className="login__greeting-title"
+            greetingText="Рады видеть!"
+            />
+            <Form
             onSubmit={handleSubmit}
-            buttonText={"Войти"}
+            buttonText="Войти"
             disabled={!formValid}
             buttonClassName={`login__submit-button ${!formValid && "login__submit-button_disabled"}`}>
-            <label className="login__label">
+            <label className="login__form-label">
                 E-mail
                 <input
-                className={`login__input ${(emailDirty && emailError) && "login__input_type_error"}`}
+                className={`login__form-input ${(emailDirty && emailError) && "login__form-input_type_error"}`}
                 value={email}
                 onChange={handleChangeEmail}
                 type="email"
                 autoComplete="off"
                 />
             </label>
-            <span className="auth__error-span auth__error-span_active">{(emailDirty && emailError) && emailError}</span>
-            <label className="login__label">
+            <span className="login__error-span login__error-span_active">{(emailDirty && emailError) && emailError}</span>
+            <label className="login__form-label">
                 Пароль
                 <input
-                className={`login__input ${(passwordDirty && passwordError) && "login__input_type_error"}`}
+                className={`login__form-input ${(passwordDirty && passwordError) && "login__form-input_type_error"}`}
                 value={password}
                 onChange={handleChangePassword}
                 type="password"
                 autoComplete="off"
                 />
             </label>
-            <span className="auth__error-span auth__error-span_active">{(passwordDirty && passwordError) && passwordError}</span>
-            </AuthForm>
+            <span className="login__error-span login__error-span_active">{(passwordDirty && passwordError) && passwordError}</span>
+            </Form>
             <AuthNav authText={"Ещё не зарегистрированы?"} linkText={"Регистрация"} />
             </div>
         </section>

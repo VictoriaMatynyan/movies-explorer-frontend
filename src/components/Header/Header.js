@@ -21,8 +21,8 @@ const Header = ({ loggedIn }) => {
         <header className="header">
             {
             !loggedIn ? (
-                <div className="header__container-unauth">
-                    <Logo />
+                <div className="header__unauth-container">
+                    <Logo className="header__logo" />
                     <nav className="header__auth-nav">
                             <Link to="signup" className="header__link">
                             Регистрация
@@ -35,7 +35,7 @@ const Header = ({ loggedIn }) => {
                 ) :
                 (
                     <div className={`${authorizedPathname.includes(location.pathname) ? 'header__auth-container' : 'header__auth-container__landing'}`}>
-                        <Logo />
+                        <Logo className="header__logo" />
                         <div className="header__nav-container">
                             <nav className="header__nav">
                                 <NavLink to="/movies" className="header__nav-link">

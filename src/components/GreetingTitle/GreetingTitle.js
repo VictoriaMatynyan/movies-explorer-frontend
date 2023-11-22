@@ -1,9 +1,9 @@
 import React from 'react';
 import './GreetingTitle.css';
 
-const GreetingTitle = ({ greetingText }) => {
+const GreetingTitle = ({ className, greetingText }) => {
     return (
-        <h3 className="greeting-title">{greetingText}</h3>
+        <h3 className={className}>{greetingText}</h3>
     )
 }
 

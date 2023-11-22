@@ -77,14 +77,17 @@ const Profile = ({ loggedIn }) => {
 
     return (
         loggedIn ? (
-            <section className="profile">
-            <Header loggedIn={true} />
-            <main className="profile__main">
-                <GreetingTitle greetingText={`Привет, ${name}!`} />
+            <>
+            <Header loggedIn={loggedIn} />
+            <main className="profile">
+                <section className="profile__container">
+                <GreetingTitle
+                className="profile__greeting-title"
+                greetingText={`Привет, ${name}!`} />
                 <form 
                 className="profile__form"
                 onSubmit={handleSubmit}>
-                    <label className="profile__label" htmlFor="profileName">
+                    <label className="profile__label">
                         Имя
                         <input
                             className="profile__input"
@@ -95,7 +98,7 @@ const Profile = ({ loggedIn }) => {
                         />
                     </label>
                     <span className="profile__error-span profile__error-span_active">{(profileNameDirty && profileNameError) && profileNameError}</span>
-                    <label className="profile__label" htmlFor="profileEmail">
+                    <label className="profile__label">
                     E-mail
                         <input
                             className="profile__input"
@@ -118,8 +121,9 @@ const Profile = ({ loggedIn }) => {
                 <Link to="/signin" className="profile__link">
                     Выйти из аккаунта
                 </Link>
+                </section>
             </main>
-        </section>
+        </>
         ) : null
     )
 }

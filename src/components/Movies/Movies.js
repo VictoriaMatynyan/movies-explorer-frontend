@@ -44,25 +44,29 @@ const Movies = ({ loggedIn }) => {
 
     return (
             loggedIn ? (
-                <section className="movies">
-                    <Header loggedIn={loggedIn} />
-                    <div className="movies__container">
+                <>
+                <Header loggedIn={loggedIn} />
+                <main className="movies">
+                  <section className="movies__container">
                     <SearchForm />
                     {/* { moviesLoading ? <Preloader /> : '' } */}
                     <MoviesCardList movies={movies.slice(0, displayedMovies)} />
                     <div className="movies__button-container">
-                        {location.pathname === '/movies' ?
-                            (<button
-                            className="movies__button"
-                            type="button"
+                      {location.pathname === '/movies' ? (
+                        <button
+                        className="movies__button"
+                        type="button"
                         >
-                            Еще
-                        </button>) : ''}
+                          Еще
+                        </button>
+                        ) : ''}
                     </div>
-                </div>
+                  </section>
+                </main>
                 <Footer />
-        </section> ) : null
-    )
+                </>
+                ) : null
+          )
 }
 
 export default Movies;

@@ -1,10 +1,10 @@
-.auth__form, .login__form {
+.register__form, .login__form {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.auth__label, .login__label {
+.register__form-label, .login__form-label {
     display: flex;
     flex-direction: column;
     font-size: 10px;
@@ -14,14 +14,14 @@
     color: #8B8B8B;
 }
 
-.auth__error-span{
+.register__error-span, .login__error-span {
     display: block;
     margin: 0;
     padding-top: 6px;
     min-height: 24px;
 }
 
-.auth__error-span_active {
+.register__error-span_active, .login__error-span_active {
     color: #EE3465;
     font-family: Inter;
     font-size: 10px;
@@ -30,7 +30,7 @@
     text-align: left;
 }
 
-.auth__input, .login__input {
+.register__form-input, .login__form-input {
     background-color: transparent;
     border-top: none;
     border-left: none;
@@ -45,19 +45,19 @@
     text-align: left;
 }
 
-.auth__input:focus, .login__input:focus {
+.register__form-input:focus, .login__form-input:focus {
     border-bottom: 1px solid #4285F4;
 }
 
-.auth__input_type_error, .login__input_type_error {
+.register__form-input_type_error, .login__form-input_type_error {
     color: #EE3465;
 }
 
-.auth__input_type_valid {
+.register__input_type_valid {
     color: #fff;
 }
 
-.auth__submit-button, .login__submit-button {
+.register__submit-button, .login__submit-button {
     width: 100%;
     padding: 14px 0 14px;
     background-color: #4285F4;
@@ -82,15 +82,15 @@
     cursor: pointer;
 }
 
-.auth__submit-button:hover, .login__submit-button:hover {
+.register__submit-button:hover, .login__submit-button:hover {
     opacity: 0.8;
 }
 
-.auth__submit-button_disabled, .login__submit-button_disabled {
+.register__submit-button_disabled, .login__submit-button_disabled {
     opacity: 0.2;
 }
 
-.auth__submit-button {
+.register__submit-button {
     margin-top: 127px;
 }
 
@@ -105,7 +105,7 @@
         font-size: 12px;
         line-height: 14.52px;
     }
-    .auth__submit-button {
+    .register__submit-button {
         margin-top: 215px;
         font-size: 12px;
         line-height: 14.52px;

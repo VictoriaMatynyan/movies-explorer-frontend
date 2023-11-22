@@ -37,11 +37,6 @@
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 6px 6px 0 0;
-    -webkit-border-radius: 6px 6px 0 0;
-    -moz-border-radius: 6px 6px 0 0;
-    -ms-border-radius: 6px 6px 0 0;
-    -o-border-radius: 6px 6px 0 0;
 }
 
 .movies-card__save-button_inactive, .movies-card__save-button_active, .movies-card__delete-button {
@@ -100,11 +95,6 @@
     .movies-card__image {
         object-fit: contain;
         height: 168px;
-        border-radius: 0;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        -ms-border-radius: 0;
-        -o-border-radius: 0;
     }
     .movies-card__save-button_inactive, .movies-card__save-button_active, .movies-card__delete-button {
         margin: 14px auto;

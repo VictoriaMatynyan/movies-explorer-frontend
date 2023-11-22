@@ -29,21 +29,23 @@ const SavedMovies = ({ loggedIn }) => {
     };
   }, []); // вызываем useEffect только при монтировании компонента
 
-    function handleMoviesLoading() {
-        setMoviesLoading(true);
-    }
+    // function handleMoviesLoading() {
+    //     setMoviesLoading(true);
+    // }
 
     return (
         loggedIn ? (
-            <section className="saved-movies">
-                <Header loggedIn={loggedIn}  />
-                <div className="saved-movies__container">
-                <SearchForm onClick={handleMoviesLoading} />
-                { moviesLoading ? <Preloader /> : '' }
-                <MoviesCardList movies={savedMovies.slice(0, displayedMovies)} />
-                </div>
-            <Footer />
-        </section>
+          <>
+          <Header loggedIn={loggedIn}  />
+          <main className="saved-movies">
+            <section className="saved-movies__container">
+              <SearchForm />
+              {/* { moviesLoading ? <Preloader /> : '' } */}
+              <MoviesCardList movies={savedMovies.slice(0, displayedMovies)} />
+            </section>
+          </main>
+          <Footer />
+          </>
         ) : null
     )
 }

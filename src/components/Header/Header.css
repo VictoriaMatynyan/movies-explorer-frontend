@@ -14,7 +14,7 @@
     background-color: #202020;
 }
 
-.header__container-unauth, .header__auth-container__landing {
+.header__unauth-container, .header__auth-container__landing {
     background-color: #073042;
 }
 
@@ -164,7 +164,7 @@
     .header__burger-button {
         display: flex;
     }
-    .header__container-unauth, .header__auth-container__landing, .header__auth-container {
+    .header__unauth-container, .header__auth-container__landing, .header__auth-container {
         padding: 0 30px;
     }
 }
@@ -182,7 +182,7 @@
         max-width: 54px;
         padding: 5px 12px;
     }
-    .header__container-unauth, .header__auth-container__landing, .header__auth-container {
+    .header__unauth-container, .header__auth-container__landing, .header__auth-container {
         padding: 0 14px;
     }
     .header__burger-button {

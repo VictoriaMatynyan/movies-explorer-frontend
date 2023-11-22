@@ -11,14 +11,16 @@ import '../Main/Main.css';
 
 const Main = ({ loggedIn }) => {
     return (
+        <>
+        <Header loggedIn={loggedIn} />
         <main className="main">
-            <Header loggedIn={loggedIn} />
             <Promo />
             <AboutProject />
             <Techs />
             <AboutMe />
-            <Footer />
         </main>
+        <Footer />
+        </>
     )
 }
 
