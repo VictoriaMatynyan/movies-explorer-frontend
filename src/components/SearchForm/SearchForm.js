@@ -2,7 +2,7 @@ import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import "./SearchForm.css";
 
-const SearchForm = ({ onClick }) => {
+const SearchForm = () => {
     return (
         <section className="search-form">
             <div className="search-form__container">
@@ -21,7 +21,7 @@ const SearchForm = ({ onClick }) => {
                         className="search-form__button"
                         type="submit"
                         aria-label="Кнопка поиска фильмов"
-                        onClick={onClick}
+                        // onClick={onClick}
                     >
                         Поиск
                     </button>

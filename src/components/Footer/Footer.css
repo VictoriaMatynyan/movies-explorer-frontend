@@ -1,6 +1,7 @@
 .footer {
-    padding: 79px 70px 20px;
+    padding: 69px 70px 20px;
 }
+/* согласно макету padding-top: 79px, но это расходится с Perfect Pixel */
 
 .footer__title {
     color: #8B8B8B;
@@ -66,8 +67,6 @@
     }
     
 }
-/* .footer на 768px padding: 79px 30px 20px, но я адаптировала под Perfect Pixel, т.к.
-с указанными в макете размерами сайт не совпадает с Perfect Pixel */
 
 @media screen and (max-width: 359px) {
     .footer {

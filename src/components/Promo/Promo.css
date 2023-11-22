@@ -27,7 +27,7 @@
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
-    letter-spacing: -0.04em;
+    letter-spacing: normal;
 }
 
 .promo__text {
@@ -118,13 +118,11 @@
     .promo__title {
         font-size: 30px;
         line-height: 38px;
-        /* max-width: 680px;
-        min-height: 100px; */
         padding-top: 44px;
+        letter-spacing: -0.04em;
     }
     .promo__text {
         padding-top: 24px;
-        /* max-width: 260px; */
     }
     .promo__link {
         margin: 80px 0 0;

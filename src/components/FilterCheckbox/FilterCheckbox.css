@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     padding: 26px 0 43px;
-    border-bottom: 1px solid #AAA;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.2);
 }
 
 .filter-checkbox__label {

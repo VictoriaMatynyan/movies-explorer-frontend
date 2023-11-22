@@ -3,14 +3,12 @@
     flex-direction: column;
     background-color: #222222;
     width: 100%;
-    /* height: 319px; */
-    border-radius: 6px;;
+    border-radius: 6px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     -ms-border-radius: 6px;
     -o-border-radius: 6px;
 }
-
 
 .movies-card__info {
     display: flex;
@@ -82,7 +80,12 @@
     background: url(../../images/saved_delete_button.svg) no-repeat center;
 }
 
-
+@media screen and (max-width: 768px) {
+    .movies-card__image {
+        width: 100%;
+        height: 190px;
+    }
+}
 
 @media screen and (max-width: 468px) {
     .movies-card__info {
