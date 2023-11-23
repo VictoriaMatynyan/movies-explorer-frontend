@@ -34,7 +34,7 @@ const Header = ({ loggedIn }) => {
                 </div>
                 ) :
                 (
-                    <div className={`${authorizedPathname.includes(location.pathname) ? 'header__auth-container' : 'header__auth-container__landing'}`}>
+                    <div className={`header__auth-container ${authorizedPathname.includes(location.pathname) ? 'header__auth-container_pages' : 'header__auth-container_landing'}`}>
                         <Logo className="header__logo" />
                         <div className="header__nav-container">
                             <nav className="header__nav">
@@ -46,7 +46,12 @@ const Header = ({ loggedIn }) => {
                                 </NavLink>
                             </nav> 
                             <div className="header__button-containter">
-                            <Link to="/profile" className={`${authorizedPathname.includes(location.pathname) ? 'header__profile-button_authorized' : 'header__profile-button_landing'}`} />
+                            <Link
+                            to="/profile"
+                            className={`header__profile-button ${authorizedPathname.includes(location.pathname) ?
+                            'header__profile-button_authorized' : 
+                            'header__profile-button_landing'}`}
+                            />
                             {!isBurgerMenuOpen && (
                             <button className="header__burger-button"
                             type="button" 

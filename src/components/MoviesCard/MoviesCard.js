@@ -21,7 +21,7 @@ const MoviesCard = ({ movieCard }) => {
             <img className="movies-card__image" src={movieCard.image} alt={movieCard.nameRU} />
             {location.pathname === '/movies' ? (
                 <button
-                className={`${!isSaved ? "movies-card__save-button_inactive" : "movies-card__save-button_active"}`}
+                className={`movies-card__save-button ${!isSaved ? "movies-card__save-button_inactive" : "movies-card__save-button_active"}`}
                 type="button"
                 onClick={onSaveToggle}
             >

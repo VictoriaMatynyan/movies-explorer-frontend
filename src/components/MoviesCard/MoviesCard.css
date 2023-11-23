@@ -39,7 +39,7 @@
     object-fit: cover;
 }
 
-.movies-card__save-button_inactive, .movies-card__save-button_active, .movies-card__delete-button {
+.movies-card__save-button, .movies-card__delete-button {
     width: 100px;
     height: 29px;
     margin: 18px auto;
@@ -54,7 +54,7 @@
     -o-transition: opacity 0.3s ease-in;
 }
 
-.movies-card__save-button_inactive:hover, .movies-card__save-button_active:hover, .movies-card__delete-button:hover {
+.movies-card__save-button:hover, .movies-card__delete-button:hover {
     opacity: 0.8;
 }
 

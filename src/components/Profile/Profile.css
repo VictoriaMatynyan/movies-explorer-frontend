@@ -82,7 +82,7 @@
     text-align: left;
 }
 
-.profile__button_type_edit {
+.profile__edit-button {
     padding-top: calc(220px - 16px);
     border: none;
     color: #fff;
@@ -102,11 +102,12 @@
 }
 /* 17px - отступ у инпутов */
 
-.profile__button_type_edit_disabled {
-    opacity: 0.2;
-}
-.profile__button_type_edit:hover {
+.profile__edit-button:hover {
     opacity: 0.8;
+}
+
+.profile__edit-button_disabled {
+    opacity: 0.2;
 }
 
 .profile__link {
@@ -138,7 +139,7 @@
     .profile__form {
         padding-top: calc(96px - 40px);
     }
-    .profile__button_type_edit {
+    .profile__edit-button {
         padding-top: calc(210px - 17px);
     }
 }
@@ -158,7 +159,7 @@
         padding-top: calc(70px - 50px);
         width: 260px;
     }
-    .profile__button_type_edit {
+    .profile__edit-button {
         padding-top: calc(380px - 17px);
         font-size: 12px;
         line-height: 14.52px;      
