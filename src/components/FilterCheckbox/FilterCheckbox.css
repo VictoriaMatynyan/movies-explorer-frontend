@@ -1,0 +1,98 @@
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 26px 0 43px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.2);
+}
+
+.filter-checkbox__label {
+    display: inline-block;
+}
+
+.filter-checkbox__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    appearance: none;
+}
+
+.filter-checkbox__text {
+    display: inline-block;
+    position: relative; 
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18px;
+    padding-left: calc(36px + 14px);
+    border: none;
+}
+
+.filter-checkbox__text::before {
+    display: block;
+    content: "";
+    width: 36px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #EBEBEB;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    transition: background-color 0.3s ease-in;
+    -webkit-transition: background-color 0.3s ease-in;
+    -moz-transition: background-color 0.3s ease-in;
+    -ms-transition: background-color 0.3s ease-in;
+    -o-transition: background-color 0.3s ease-in;
+}
+
+.filter-checkbox__text::after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 6px;
+    left: 6px;
+    background-color: #F5F5F5;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    transition: background-color 0.3s ease-in, left 0.3s ease-in;
+    -webkit-transition: background-color 0.3s ease-in, left 0.3s ease-in;
+    -moz-transition: background-color 0.3s ease-in, left 0.3s ease-in;
+    -ms-transition: background-color 0.3s ease-in, left 0.3s ease-in;
+    -o-transition: background-color 0.3s ease-in, left 0.3s ease-in;
+}
+
+.filter-checkbox__input:checked + .filter-checkbox__text::before {
+    background-color: #2BE080;
+    border: none;
+}
+
+.filter-checkbox__input:checked + .filter-checkbox__text::after {
+    background-color: #F5F5F5;
+    left: 22px;
+    border: none;
+}
+
+@media screen and (max-width: 768px) {
+    .filter-checkbox {
+        padding: 26px 0 51px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .filter-checkbox {
+        padding: 30px 0 63px;
+    }
+    .filter-checkbox__text {
+        font-size: 11px;
+        line-height: 18px;
+    }
+}

@@ -1,0 +1,193 @@
+.header {
+    height: 100%;
+}
+
+.header__unauth-container, .header__auth-container {
+    display: flex;
+    min-height: 74px;
+    justify-content: space-between;
+    padding: 0 70px;
+    align-items: center;
+}
+
+.header__auth-container_pages {
+    background-color: #202020;
+}
+
+.header__unauth-container, .header__auth-container_landing {
+    background-color: #073042;
+}
+
+.header__nav-container {
+    display: flex;
+}
+
+.header__auth-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.header__nav {
+    display: flex;
+    gap: 20px;
+    padding-right: 50px;
+}
+
+.header__link {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: right;
+    color: #fff;
+    align-self: center;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+.header__link:hover {
+    opacity: 0.7;
+}
+
+.header__nav-link {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: right;
+    color: #fff;
+    align-self: center;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+.header__nav-link.active {
+    font-weight: 500;
+}
+
+.header__nav-link:hover {
+    opacity: 0.7;
+}
+
+.header__signin-button {
+    text-decoration: none;
+    background-color: #3DDC84;
+    height: 32px;
+    max-width: 76px;
+    padding: 8px 20px;
+    color: #000;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    font-style: normal;
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.header__signin-button:hover {
+    opacity: 0.8;
+}
+
+.header__button-containter {
+    display: flex;
+}
+
+.header__profile-button {
+    width: 100px;
+    height: 32px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+.header__profile-button:hover {
+    opacity: 0.8;
+}
+
+.header__profile-button_landing {
+    background: url('../../images/landing_profile_button.svg') no-repeat center;
+}
+
+.header__profile-button_authorized {
+    background: url('../../images/main_profile_button.svg') no-repeat center;
+}
+
+.header__burger-button {
+    background: url('../../images/burger_menu.svg') center/contain no-repeat;
+    border: none;
+    background-color: transparent;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+    display: none;
+    align-self: center;
+}
+
+.header__burger-button:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+    .header__nav, .header__profile-button, .header__profile-button {
+        display: none;
+    }
+    .header__burger-button {
+        display: flex;
+    }
+    .header__unauth-container, .header__auth-container {
+        padding: 0 30px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .header__auth-nav {
+        gap: 14px;
+    }
+    .header__link {
+        font-size: 10px;
+    }
+    .header__signin-button {
+        font-size: 10px;
+        height: 26px;
+        max-width: 54px;
+        padding: 5px 12px;
+    }
+    .header__unauth-container, .header__auth-container {
+        padding: 0 14px;
+    }
+    .header__burger-button {
+        width: 40px;
+        height: 43px;
+    }
+}
+

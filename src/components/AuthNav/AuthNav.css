@@ -1,0 +1,46 @@
+.register__nav, .login__nav { 
+    padding-bottom: 70px;
+    width: 100%;
+}
+
+.register__nav-line, .login__nav-line {
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    gap: 6px;
+}
+
+.register__nav-text, .login__nav-text {
+    color: #8B8B8B;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: left;
+}
+
+.register__nav-link, .login__nav-link {
+    text-decoration: none;
+    color: #4285F4;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: right;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+.auth-nav__link:hover {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 485px) {
+    .auth-nav__text, .auth-nav__link {
+        font-size: 12px;
+        line-height: 14.52px;
+    }
+}

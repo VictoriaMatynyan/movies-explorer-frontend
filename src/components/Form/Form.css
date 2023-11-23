@@ -1,0 +1,113 @@
+.register__form, .login__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.register__form-label, .login__form-label {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    color: #8B8B8B;
+}
+
+.register__error-span, .login__error-span {
+    display: block;
+    margin: 0;
+    padding-top: 6px;
+    min-height: 24px;
+}
+
+.register__error-span_active, .login__error-span_active {
+    color: #EE3465;
+    font-family: Inter;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+}
+
+.register__form-input, .login__form-input {
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #424242;
+    padding: 5px 0 10px;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: left;
+}
+
+.register__form-input:focus, .login__form-input:focus {
+    border-bottom: 1px solid #4285F4;
+}
+
+.register__form-input_type_error, .login__form-input_type_error {
+    color: #EE3465;
+}
+
+.register__input_type_valid {
+    color: #fff;
+}
+
+.register__submit-button, .login__submit-button {
+    width: 100%;
+    padding: 14px 0 14px;
+    background-color: #4285F4;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.94px;
+    text-align: center;
+    border: none;
+    outline: none;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    cursor: pointer;
+}
+
+.register__submit-button:hover, .login__submit-button:hover {
+    opacity: 0.8;
+}
+
+.register__submit-button_disabled, .login__submit-button_disabled {
+    opacity: 0.2;
+}
+
+.register__submit-button {
+    margin-top: 127px;
+}
+
+.login__submit-button {
+    margin-top: 197px;
+}
+
+@media screen and (max-width: 485px) {
+    .login__submit-button {
+        margin-top: calc(267px + 20px);
+        padding: 15px 0 15px;
+        font-size: 12px;
+        line-height: 14.52px;
+    }
+    .register__submit-button {
+        margin-top: 215px;
+        font-size: 12px;
+        line-height: 14.52px;
+    }
+}

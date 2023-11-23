@@ -1,0 +1,19 @@
+.saved-movies {
+    margin: 0 auto;
+}
+
+.saved-movies__container {
+    padding: 70px 70px 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .saved-movies__container {
+        padding: 70px 30px 10px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .saved-movies__container {
+        padding: 70px 10px 10px;
+    }
+}
