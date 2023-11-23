@@ -109,11 +109,11 @@ const Register = ({ onFormSubmit }) => {
             onSubmit={handleSubmit}
             buttonText={"Зарегистрироваться"}
             disabled={!formValid}
-            buttonClassName={`register__submit-button ${!formValid && "register__submit-button_disabled"}`}>
+            buttonClassName={`register__submit-button ${!formValid ? "register__submit-button_disabled" : ""}`}>
                 <label className="register__form-label">
                     Имя
                     <input
-                    className={`register__form-input ${(dataDirty && nameError) && "register__form-input_type_error"}`}
+                    className={`register__form-input ${(dataDirty && nameError) ? "register__form-input_type_error": ""}`}
                     type={"text"}
                     value={userData.regName}
                     onChange={handleChangeName}
@@ -124,7 +124,7 @@ const Register = ({ onFormSubmit }) => {
                     <label className="register__form-label">
                         E-mail
                         <input
-                            className={`register__form-input ${(dataDirty && emailError) && "register__form-input_type_error"}`}
+                            className={`register__form-input ${(dataDirty && emailError) ? "register__form-input_type_error" : ""}`}
                             type="email"
                             value={userData.regEmail}
                             onChange={handleChangeEmail}
@@ -135,7 +135,7 @@ const Register = ({ onFormSubmit }) => {
                     <label className="register__form-label">
                         Пароль
                         <input
-                            className={`register__form-input ${(dataDirty && passwordError) && "register__form-input_type_error"}`}
+                            className={`register__form-input ${(dataDirty && passwordError) ? "register__form-input_type_error" : ""}`}
                             type="password"
                             value={userData.regPassword}
                             onChange={handleChangePassword}

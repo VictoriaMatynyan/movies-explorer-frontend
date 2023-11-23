@@ -89,11 +89,11 @@ const Login = ({ onFormSubmit }) => {
             onSubmit={handleSubmit}
             buttonText="Войти"
             disabled={!formValid}
-            buttonClassName={`login__submit-button ${!formValid && "login__submit-button_disabled"}`}>
+            buttonClassName={`login__submit-button ${!formValid ? "login__submit-button_disabled" : ""}`}>
             <label className="login__form-label">
                 E-mail
                 <input
-                className={`login__form-input ${(emailDirty && emailError) && "login__form-input_type_error"}`}
+                className={`login__form-input ${(emailDirty && emailError) ? "login__form-input_type_error" : ""}`}
                 value={email}
                 onChange={handleChangeEmail}
                 type="email"
@@ -104,7 +104,7 @@ const Login = ({ onFormSubmit }) => {
             <label className="login__form-label">
                 Пароль
                 <input
-                className={`login__form-input ${(passwordDirty && passwordError) && "login__form-input_type_error"}`}
+                className={`login__form-input ${(passwordDirty && passwordError) ? "login__form-input_type_error" : ""}`}
                 value={password}
                 onChange={handleChangePassword}
                 type="password"

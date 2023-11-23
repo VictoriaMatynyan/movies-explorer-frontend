@@ -111,7 +111,7 @@ const Profile = ({ loggedIn }) => {
                     </label>
                     <span className="profile__error-span profile__error-span_active">{(profileEmailDirty && profileEmailError) && profileEmailError}</span>
                     <button
-                        className={`profile__edit-button ${!formValid && "profile__edit-button_disabled"}`}
+                        className={`profile__edit-button ${!formValid ? "profile__edit-button_disabled" : ""}`}
                         type="submit"
                         disabled={!formValid}
                     >
