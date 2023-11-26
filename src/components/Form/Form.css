@@ -1,4 +1,4 @@
-.register__form, .login__form {
+.form,.register__form, .login__form {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -87,7 +87,13 @@
 }
 
 .register__submit-button_disabled, .login__submit-button_disabled {
-    opacity: 0.2;
+    background-color: rgba(66, 133, 244, .2);
+    color: rgba(255, 255, 255, .2);
+    cursor: auto;
+}
+
+.register__submit-button_disabled:hover, .login__submit-button_disabled:hover {
+    opacity: 1;
 }
 
 .register__submit-button {

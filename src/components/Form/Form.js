@@ -7,7 +7,7 @@ const Form = ({ children, buttonText, disabled, buttonClassName, onSubmit }) => 
 
     return (
         <form
-        className={location.pathname === "/signup" ? "register__form" : "login__form"}
+        className={`form ${location.pathname === "/signup" ? "register__form" : "login__form"}`}
         name={location.pathname === "/signup" ? "register__form" : "login__form"}
         onSubmit={onSubmit}>
             {children}

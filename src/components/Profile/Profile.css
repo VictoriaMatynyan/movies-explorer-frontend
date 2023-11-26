@@ -13,7 +13,7 @@
 }
 /* 40px - это padding-top у GreetingTitle */
 
-.profile__form {
+.form, .profile__form {
     display: flex;
     flex-direction: column;
     width: 100%;
