@@ -7,12 +7,21 @@ import AuthNav from "../AuthNav/AuthNav";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Login.css';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, errorMessage, onCleanError, isLoading }) => {
     const { values, errors, formValid, handleInputChange } = useFormValidation();
 
     function handleSubmit (e) {
         e.preventDefault();
         onLogin(values.email, values.password);
+    }
+
+    // отслеживаем изменения в инпутах
+    // если висит серверная ошибка, очищаем её через onCleanError
+    function handleInputChangeWithLoading(e) {
+        handleInputChange(e);
+        if (errorMessage) {
+            onCleanError();
+        }
     }
 
     return (
@@ -25,15 +34,20 @@ const Login = ({ onLogin }) => {
             />
             <Form
             onSubmit={handleSubmit}
-            buttonText="Войти"
-            disabled={!formValid}
-            buttonClassName={`login__submit-button ${!formValid ? "login__submit-button_disabled" : ""}`}>
+            buttonText={isLoading ? "Вход в систему..." : "Войти"}
+            disabled={!formValid || isLoading}
+            buttonClassName={`login__submit-button ${!formValid || isLoading ? "login__submit-button_disabled" : ""}`}
+            errorMessage={errorMessage}
+            onCleanError={onCleanError}
+            isLoading={isLoading}
+            >
             <label className="login__form-label">
                 E-mail
                 <input
                 className={`login__form-input ${errors.email ? "login__form-input_type_error" : ""}`}
                 value={values.email || ''}
-                onChange={handleInputChange}
+                onChange={handleInputChangeWithLoading}
+                // onChange={handleInputChange}
                 type="email"
                 name="email"
                 required
@@ -46,7 +60,8 @@ const Login = ({ onLogin }) => {
                 <input
                 className={`login__form-input ${errors.password ? "login__form-input_type_error" : ""}`}
                 value={values.password || ''}
-                onChange={handleInputChange}
+                onChange={handleInputChangeWithLoading}
+                // onChange={handleInputChange}
                 type="password"
                 name="password"
                 required

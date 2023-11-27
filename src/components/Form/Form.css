@@ -57,6 +57,22 @@
     color: #fff;
 }
 
+.form__error {
+    color: #EE3465;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: center;
+}
+
+.form__error_register {
+    margin-top: calc(127px - 20px);
+}
+
+.form__error_login {
+    margin-top: calc(197px - 20px);
+}
+
 .register__submit-button, .login__submit-button {
     width: 100%;
     padding: 14px 0 14px;
@@ -96,13 +112,14 @@
     opacity: 1;
 }
 
-.register__submit-button {
+/* .register__submit-button {
     margin-top: 127px;
-}
+} */
 
-.login__submit-button {
-    margin-top: 197px;
+.register__submit-button, .login__submit-button {
+    margin-top: 20px;
 }
+/* 127px - reg, 197px - log */
 
 @media screen and (max-width: 485px) {
     .login__submit-button {

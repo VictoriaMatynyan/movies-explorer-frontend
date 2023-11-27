@@ -6,7 +6,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Profile.css';
 
-const Profile = ({ loggedIn, handleUpdateUser, onLogOut }) => {
+const Profile = ({ loggedIn, handleUpdateUser, onLogOut, errorMessage, onCleanError, isLoading }) => {
     const { values, errors, formValid, handleInputChange, resetFormValues } = useFormValidation();
 
     const currentUser = React.useContext(CurrentUserContext);
@@ -24,6 +24,13 @@ const Profile = ({ loggedIn, handleUpdateUser, onLogOut }) => {
             name: values.name,
             email: values.email
         });
+    }
+
+    function handleInputChangeWithLoading(e) {
+        handleInputChange(e);
+        if (errorMessage) {
+            onCleanError();
+        }
     }
 
     // проверяем на несовпадение введённых в форму данных с текущими
@@ -46,7 +53,8 @@ const Profile = ({ loggedIn, handleUpdateUser, onLogOut }) => {
                             className="profile__input"
                             type="text"
                             value={values.name || ""}
-                            onChange={handleInputChange}
+                            onChange={handleInputChangeWithLoading}
+                            // onChange={handleInputChange}
                             name="name"
                             autoComplete="off"
                         />
@@ -58,19 +66,21 @@ const Profile = ({ loggedIn, handleUpdateUser, onLogOut }) => {
                             className="profile__input"
                             type="email"
                             value={values.email || ""}
-                            onChange={handleInputChange}
+                            onChange={handleInputChangeWithLoading}
+                            // onChange={handleInputChange}
                             name="email"
                             required
                             autoComplete="off"
                         />
                     </label>
                     <span className="profile__error-span profile__error-span_active">{errors.email}</span>
+                    <span className="profile__form-error">{errorMessage}</span>
                     <button
-                        className={`profile__edit-button ${!formValid || !isDataChanged ? "profile__edit-button_disabled" : ""}`}
+                        className={`profile__edit-button ${!formValid || !isDataChanged || isLoading ? "profile__edit-button_disabled" : ""}`}
                         type="submit"
-                        disabled={!formValid || !isDataChanged}
+                        disabled={!formValid || !isDataChanged || isLoading}
                     >
-                        Редактировать
+                        {isLoading ? "Сохранение..." : "Редактировать"}
                     </button>
                 </form>
                 <button className="profile__logout-button" onClick={onLogOut}>

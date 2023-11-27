@@ -7,12 +7,21 @@ import AuthNav from "../AuthNav/AuthNav";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Register.css';
 
-const Register = ({ onRegiser }) => {
+const Register = ({ onRegiser, errorMessage, onCleanError, isLoading }) => {
     const { values, errors, formValid, handleInputChange } = useFormValidation();
     
     function handleSubmit (e) {
         e.preventDefault();
         onRegiser(values.name, values.email, values.password);
+    }
+
+    // отслеживаем изменения в инпутах
+    // если висит серверная ошибка, очищаем её через onCleanError
+    function handleInputChangeWithLoading(e) {
+        handleInputChange(e);
+        if (errorMessage) {
+            onCleanError();
+        }
     }
 
     return (
@@ -25,16 +34,20 @@ const Register = ({ onRegiser }) => {
             />
             <Form
             onSubmit={handleSubmit}
-            buttonText={"Зарегистрироваться"}
-            disabled={!formValid}
-            buttonClassName={`register__submit-button ${!formValid ? "register__submit-button_disabled" : ""}`}>
+            buttonText={isLoading ? "Регистрация..." : "Зарегистрироваться"}
+            disabled={!formValid || isLoading}
+            buttonClassName={`register__submit-button ${!formValid || isLoading ? "register__submit-button_disabled" : ""}`}
+            errorMessage={errorMessage}
+            onCleanError={onCleanError}
+            isLoading={isLoading}>
                 <label className="register__form-label">
                     Имя
                     <input
                     className={`register__form-input ${errors.name ? "register__form-input_type_error": ""}`}
                     type="text"
                     value={values.name || ''}
-                    onChange={handleInputChange}
+                    onChange={handleInputChangeWithLoading}
+                    // onChange={handleInputChange}
                     required
                     name="name"
                     autoComplete="off"
@@ -47,7 +60,8 @@ const Register = ({ onRegiser }) => {
                             className={`register__form-input ${errors.email ? "register__form-input_type_error" : ""}`}
                             type="email"
                             value={values.email || ''}
-                            onChange={handleInputChange}
+                            onChange={handleInputChangeWithLoading}
+                            // onChange={handleInputChange}
                             required
                             name="email"
                             autoComplete="off"
@@ -60,7 +74,8 @@ const Register = ({ onRegiser }) => {
                             className={`register__form-input ${errors.password ? "register__form-input_type_error" : ""}`}
                             type="password"
                             value={values.password || ''}
-                            onChange={handleInputChange}
+                            onChange={handleInputChangeWithLoading}
+                            // onChange={handleInputChange}
                             required
                             name="password"
                             autoComplete="off"
