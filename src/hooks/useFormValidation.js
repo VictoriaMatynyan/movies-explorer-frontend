@@ -51,7 +51,6 @@ function useFormValidation() {
         setErrors({...errors, [name]: e.target.validationMessage});
         const form = e.target.closest('form');
         setFormValid(form ? form.checkValidity() : false);
-        // setFormValid(e.target.closest('form').checkValidity());
     }
     
     // сбрасываем состояния формы, устанавливаем новые значения

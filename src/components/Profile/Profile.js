@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 // import { useForm } from "react-hook-form";
 import Header from "../Header/Header";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
@@ -7,24 +6,28 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Profile.css';
 
-const Profile = ({ loggedIn, handleChangeProfileData }) => {
+const Profile = ({ loggedIn, handleUpdateUser, onLogOut }) => {
     const { values, errors, formValid, handleInputChange, resetFormValues } = useFormValidation();
 
     const currentUser = React.useContext(CurrentUserContext);
 
     useEffect(() => {
         resetFormValues({
-            name: currentUser.name,
-            email: currentUser.email
+            email: currentUser.email,
+            name: currentUser.name
         }, {}, false)
     }, [currentUser, resetFormValues]);
 
     function handleSubmit(e) {
         e.preventDefault();
-        handleChangeProfileData();
+        handleUpdateUser({
+            name: values.name,
+            email: values.email
+        });
     }
 
-    //!!!!!!! сделать проверку (useEffect) на несовпадение введённых данных с текущими
+    // проверяем на несовпадение введённых в форму данных с текущими
+    const isDataChanged = values.name !== currentUser.name || values.email !== currentUser.email;
 
     return (
             <>
@@ -62,18 +65,17 @@ const Profile = ({ loggedIn, handleChangeProfileData }) => {
                         />
                     </label>
                     <span className="profile__error-span profile__error-span_active">{errors.email}</span>
-                    {/* <span className="profile__error-span profile__error-span_active">{(profileEmailDirty && profileEmailError) && profileEmailError}</span> */}
                     <button
-                        className={`profile__edit-button ${!formValid ? "profile__edit-button_disabled" : ""}`}
+                        className={`profile__edit-button ${!formValid || !isDataChanged ? "profile__edit-button_disabled" : ""}`}
                         type="submit"
-                        disabled={!formValid}
+                        disabled={!formValid || !isDataChanged}
                     >
                         Редактировать
                     </button>
                 </form>
-                <Link to="/signin" className="profile__link">
+                <button className="profile__logout-button" onClick={onLogOut}>
                     Выйти из аккаунта
-                </Link>
+                </button>
                 </section>
             </main>
         </>

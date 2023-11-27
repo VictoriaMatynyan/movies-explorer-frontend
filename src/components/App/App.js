@@ -21,10 +21,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   // создаём стейт для изменения данных пользователя
   const [currentUser, setCurrentUser] = useState({});
-  // const [currentUser, setCurrentUser] = useState({
-  //   name: "Виктория",
-  //   email: "pochta@yandex.ru"
-  // });
   // создаём пустой массив для всех фильмов с сервера и для сохранённых фильмов
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -33,16 +29,28 @@ function App() {
 
   useEffect(() => {
     loggedIn &&
-    Promise.all([mainApi.getUserInfo(), moviesApi.getMovies()])
-    .then(([userData, savedMoviesData]) => {
+    mainApi.getUserInfo()
+    .then((userData) => {
       setCurrentUser(userData);
-      setSavedMovies(savedMoviesData);
       // сохранить в localStorage фильмы
     })
     .catch((err) => {
       console.log(`Ошибка хука на выдачу данных: ${err}`);
     });
   }, [loggedIn]);
+  // useEffect(() => {
+  //   loggedIn &&
+  //   Promise.all([mainApi.getUserInfo(), moviesApi.getMovies()])
+  //   .then(([userData, savedMoviesData]) => {
+  //     setCurrentUser(userData);
+      
+  //     setSavedMovies(savedMoviesData);
+  //     // сохранить в localStorage фильмы
+  //   })
+  //   .catch((err) => {
+  //     console.log(`Ошибка хука на выдачу данных: ${err}`);
+  //   });
+  // }, [loggedIn]);
 
   const handleRegistration = async (name, email, password) => {
     try {
@@ -51,60 +59,61 @@ function App() {
       }
       const data = await mainApi.register(name, email, password);
       if (data) {
-        navigate('/signin', { replace: true });
+        navigate('/movies', { replace: true });
       }
     } catch(err) {
         console.log(`Ошибка регистрации: ${err}`);
       }
   };
 
-  const handleSignIn = (email, password) => {
+  const handleSignIn = async(email, password) => {
     if (!email || !password) {
       return;
     }
-    mainApi.login(email, password)
-      .then((data) => {
-        if (data.message) {
-          // localStorage.setItem('jwt', data.token);
-          setLoggedIn(true);
-        // setCurrentUser(data);
-        navigate('/', { replace: true });
-        }
-      })
-    .catch ((err) => {
-      console.log(`Ошибка авторизации: ${err}`);
-    })
-  };
-  // const handleSignIn = async({ email, password }) => {
-  //   if (!email || !password) {
-  //     return;
-  //   }
-  //   try {
-  //     const data = await mainApi.login(email, password);
-  //     if (data.message) {
-  //       setLoggedIn(true);
-  //       // setCurrentUser(data);
-  //       navigate('/', { replace: true });
-  //     }
-  //   }
-  //   catch (err) {
-  //     console.log(`Ошибка авторизации: ${err}`);
-  //   }
-  // };
-
-  const handleUpdateUser = async (name, email) => {
     try {
-      if (!name || !email) {
-        return;
+      const data = await mainApi.login(email, password);
+      if (data.message) {
+        setLoggedIn(true);
+        // setCurrentUser(data);
+        navigate('/movies', { replace: true });
       }
-      const data = await mainApi.editUserInfo(name, email);
-      if (data) {
-        setCurrentUser(data);
-      }
-      } catch(err) {
-        console.log(`Ошибка обновления данных пользователя: ${err}`);
-      }
-    };
+    }
+    catch (err) {
+      console.log(`Ошибка авторизации: ${err}`);
+    }
+  };
+
+  // const handleLogOut = () => {
+  //   mainApi.logout()
+  //   .then(() => {
+  //     setLoggedIn(false);
+  //     // setCurrentUser({});
+  //     navigate('/', {replace: true});
+  //   })
+  //   .catch((err) => {
+  //     console.log(`Ошибка при выходе из системы: ${err}`);
+  //   })
+  // }
+  const handleLogOut = async () => {
+    try {
+      await mainApi.logout();
+      setLoggedIn(false);
+      setCurrentUser({});
+      navigate('/', {replace: true});
+    }
+    catch (err) {
+      console.log(`Ошибка при выходе из системы: ${err}`);
+    }
+  }
+
+  const handleUpdateUser = async ({name, email}) => {
+    try {
+      const data = await mainApi.editUserInfo({name, email});
+      setCurrentUser(data);
+    } catch(err)  {
+      console.log(`Ошибка загрузки данных пользователя: ${err}`);
+    }
+  }
 
   return (
     <>
@@ -135,7 +144,8 @@ function App() {
           element={<ProtectedRouteElement
             element={Profile}
             loggedIn={loggedIn}
-            handleChangeProfileData={handleUpdateUser} />
+            handleUpdateUser={handleUpdateUser}
+            onLogOut={handleLogOut} />
           }
         />
         <Route

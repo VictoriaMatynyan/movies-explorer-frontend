@@ -58,7 +58,7 @@ export const getUserInfo = () => {
 };
 
 // запрос на изменение данных пользователя
-export const editUserInfo = (name, email) => { //formValues
+export const editUserInfo = (formValues) => { //formValues name, email
     return fetch(`${BASE_URL}/users/me`, {
         method: 'PATCH',
         credentials: 'include',
@@ -66,7 +66,10 @@ export const editUserInfo = (name, email) => { //formValues
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email }) //formValues.name, //formValues.email
+        body: JSON.stringify({ 
+            name: formValues.name,
+            email: formValues.email
+        }) //formValues.name, formValues.email name, email
     })
     .then(validateResponse);
 };

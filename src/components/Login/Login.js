@@ -16,7 +16,7 @@ const Login = ({ onLogin }) => {
     }
 
     return (
-        <section className="login">
+        <main className="login">
             <div className="login__container">
             <Logo className="login__logo"/>
             <GreetingTitle
@@ -57,7 +57,7 @@ const Login = ({ onLogin }) => {
             </Form>
             <AuthNav authText={"Ещё не зарегистрированы?"} linkText={"Регистрация"} />
             </div>
-        </section>
+        </main>
     )
 }
 
