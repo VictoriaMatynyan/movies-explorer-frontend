@@ -17,44 +17,49 @@ import * as moviesApi from '../../utils/MoviesApi';
 import './App.css';
 
 function App() {
-  //создаём стейт для проверки пользователя на авторизацию
+  // стейт для проверки пользователя на авторизацию
   const [loggedIn, setLoggedIn] = useState(false);
-  // создаём стейт для изменения данных пользователя
+  // стейт для изменения данных пользователя
   const [currentUser, setCurrentUser] = useState({});
-  // создаём пустой массив для всех фильмов с сервера и для сохранённых фильмов
+  // пустой массив для всех фильмов с сервера и для сохранённых фильмов
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  // // создаём стейт для чекбокса
+  // const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  // стейт для сохранения фильмов
+  const [isSaved, setIsSaved] = useState(false);
   // стейт для серверных ошибок
   const [errorMessage, setErrorMessage] = useState('');
-  // создаём стейт для индикаторов загрузки запросов
+  // стейт для индикаторов загрузки запросов, в т.ч. фильмов
   const [isLoading, setIsLoading] = useState(false);
+  // стейт для статусов запросов
+  const [isSucceeded, setIsSucceeded] = useState(false);
   
   const navigate = useNavigate();
 
-  useEffect(() => {
-    loggedIn &&
-    mainApi.getUserInfo()
-    .then((userData) => {
-      setCurrentUser(userData);
-      // сохранить в localStorage фильмы
-    })
-    .catch((err) => {
-      console.log(`Ошибка хука на выдачу данных: ${err}`);
-    });
-  }, [loggedIn]);
   // useEffect(() => {
   //   loggedIn &&
-  //   Promise.all([mainApi.getUserInfo(), moviesApi.getMovies()])
-  //   .then(([userData, savedMoviesData]) => {
+  //   mainApi.getUserInfo()
+  //   .then((userData) => {
   //     setCurrentUser(userData);
-      
-  //     setSavedMovies(savedMoviesData);
-  //     // сохранить в localStorage фильмы
   //   })
   //   .catch((err) => {
   //     console.log(`Ошибка хука на выдачу данных: ${err}`);
   //   });
   // }, [loggedIn]);
+  useEffect(() => {
+    loggedIn &&
+    Promise.all([mainApi.getUserInfo(), mainApi.getMovies()])
+    .then(([userData, savedMoviesData]) => {
+      setCurrentUser(userData);
+      setSavedMovies(savedMoviesData);
+      // сохраняем в localStorage фильмы
+      localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
+    })
+    .catch((err) => {
+      console.log(`Ошибка хука на выдачу данных: ${err}`);
+    });
+  }, [loggedIn]);
 
   const handleRegistration = async (name, email, password) => {
     setErrorMessage('');
@@ -123,6 +128,27 @@ function App() {
     }
   }
 
+  // получаем доступ ко всем фильмам
+  const handleSearchAndFindMovies = async () => {
+    setErrorMessage('');
+    setIsLoading(true);
+    try {
+      const data = await moviesApi.getMovies();
+      setMovies(data);
+    } catch(err) {
+      console.log(`Ошибка получения фильмов: ${err}`);
+      setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  }
+
+  const handleFilterMovies = () => {
+    
+  }
+
   function handleCleanServerError() {
     setErrorMessage('');
   }
@@ -141,7 +167,16 @@ function App() {
           path="/movies"
           element={<ProtectedRouteElement
             element={Movies}
-            loggedIn={loggedIn} />
+            loggedIn={loggedIn}
+            movies={movies}
+            onSearchSubmit={handleSearchAndFindMovies}
+            onMovieSave
+            onMovieDelete
+            savedMovies={savedMovies}
+            isLoading={isLoading}
+            isSucceeded={isSucceeded}
+            errorMessage={errorMessage}
+            onCheckboxFilter={handleFilterMovies} />
           }
         />
         <Route

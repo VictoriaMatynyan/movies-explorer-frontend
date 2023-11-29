@@ -84,7 +84,7 @@ const Profile = ({ loggedIn, handleUpdateUser, onLogOut, errorMessage, onCleanEr
                     </button>
                 </form>
                 <button className="profile__logout-button" onClick={onLogOut}>
-                    Выйти из аккаунта
+                    {isLoading ? "Выход..." : "Выйти из аккаунта"}
                 </button>
                 </section>
             </main>

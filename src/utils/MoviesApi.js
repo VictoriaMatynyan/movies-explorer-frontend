@@ -9,9 +9,9 @@ export function validateResponse(res) {
 
 // получаем данные сервиса с фильмами
 export function getMovies() {
-    return fetch (BEATFILM_MOVIES_URL, {
+    return fetch (`${BEATFILM_MOVIES_URL}/`, {
         method: 'GET',
-        credentials: 'include', // отправляем куки вместе с запросом
+        // credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         }
