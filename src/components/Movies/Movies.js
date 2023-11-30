@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -16,40 +16,22 @@ const Movies = ({
   isSucceeded,
   errorMessage,
   onCheckboxFilter,
-  isCheckboxChecked
 }) => {
-  // // создаём стейт для чекбокса
-  // const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-  
-    // const firstTwelveMovies = movies.slice(0, 12);
-    
-    // const [displayedMovies, setDisplayedMovies] = useState(12); // по умолчанию отображаем 12 карточки
+  // создаём стейт для чекбокса
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
-    // useEffect(() => {
-    //   const handleInitialResize = () => {
-    //     if (window.innerWidth <= 1280 && window.innerWidth > 769) {
-    //       setDisplayedMovies(12); // если ширина экрана <= 1280px, отображаем 12 карточек
-    //     } else if (window.innerWidth <= 769 && window.innerWidth > 321) {
-    //       setDisplayedMovies(8);
-    //     } else if (window.innerWidth <= 320) {
-    //       setDisplayedMovies(5);
-    //     }
-    //   };
-    //   // инициализируем при загрузке страницы
-    //   handleInitialResize();
-    //   const handleResize = () => handleInitialResize();
-    //   // добавляем слушатель события изменения размера экрана при монтировании компонента
-    //   window.addEventListener('resize', handleResize);
-    //   // удаляем слушатель при размонтировании компонента
-    //   return () => {
-    //     window.removeEventListener('resize', handleResize);
-    //   };
-    // }, []); // вызываем useEffect только при монтировании компонента
+  // устанавливаем значения для поиска и чекбокса из LocalStorage каждый раз при монтировании компонента
+  useEffect(() => {
+    setIsCheckboxChecked(JSON.parse(localStorage.getItem('filterCheckBoxState')));
+    // получаем фильмы либо из LS, либо пустой массив, если их там нет
+    const foundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];
+    // фильтруем сохранённые фильмы в зависимости от состояния чекбокса
+    const checkboxState = localStorage.getItem('checkboxState');
+    const filterFoundMovies = foundMovies.filter((movie) => checkboxState === 'true' ? movie.duration <= 40 : []); // false вместо []
 
-
-    // function handleMoviesLoading() {
-    //     setMoviesLoading(true);
-    // }
+    setFilteredMovies(filterFoundMovies);
+  }, [movies, isCheckboxChecked]);
 
     return (
       <>
@@ -62,6 +44,7 @@ const Movies = ({
           isLoading={isLoading}
           isChecked={isCheckboxChecked} />
           <MoviesCardList
+          // movies={filteredMovies}
           movies={movies}
           onMovieSave={onMovieSave}
           onMovieDelete={onMovieDelete}

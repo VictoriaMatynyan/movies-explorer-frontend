@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import "./SearchForm.css";
@@ -9,27 +9,16 @@ const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, isChecked }) 
     const [movieQuery, setMovieQuery] = useState('');
     // const [isMovieSaved, setIsMovieSaved] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    // настраиваем поиск фильмов и сохраняем результат в LocalStorage
-    // function handleMovieSearchConfig(movies, searchTerm, isMovieSaved) {
-    //     // убираем зависимость от регистра и лишние пробелы
-    //     const searchTermToLowerCase = searchTerm.toLowerCase().trim();
-    //     const foundMovies = movies.filter((movie) => {
-    //         // настраиваем названия фильмов по аналогии с запросом
-    //         const movieNameRUToLowerCase = movie.nameRU.toLowerCase().trim();
-    //         const movieNameENToLowerCase = movie.nameEN.toLowerCase().trim();
-    //         return (
-    //             movieNameRUToLowerCase.includes(searchTermToLowerCase) ||
-    //             movieNameENToLowerCase.includes(searchTermToLowerCase)
-    //         );
-    //     })
-    //     if (isMovieSaved) {
-    //         // если фильм не соханён, то добавляем в LocalStorage поисковый запрос и сам фильм
-    //         localStorage.setItem("movieSearchTerm", searchTerm);
-    //         localStorage.setItem("foundMovies", JSON.stringify(foundMovies));
-    //     } else {
 
-    //     }
-    // }
+    useEffect(() => {
+        if (location.pathname === '/movies') {
+            const movieSearchQuery = localStorage.getItem('movieSearchQuery');
+            if (movieSearchQuery) {
+                setMovieQuery(movieSearchQuery);
+            }
+            // setMovieQuery(localStorage.getItem('movieSearchQuery'));
+        }
+    }, [location.pathname]);
 
     // функция поиска фильмов Movies отличается от SavedMovies
     function handleSubmit(e) {
@@ -40,9 +29,11 @@ const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, isChecked }) 
             } else {
                 onSearchSubmit(movieQuery);
                 setErrorMessage('');
+                localStorage.setItem('movieSearchQuery', movieQuery);
             }
         } else {
             onSearchSubmit(movieQuery);
+            localStorage.setItem('movieSearchQuery', movieQuery);
         }
     };
 

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ onCheckboxChange, isLoading, isChecked }) => {
+    const [isCheckBoxChecked, setIsCheckboxChecked] = useState(isChecked);
+    const handleCheckboxToggle = (e) => {
+        setIsCheckboxChecked(e.target.checked);
+        onCheckboxChange(e.target.checked);
+    };
+
     return (
         <div className="filter-checkbox">
             <label
@@ -12,9 +18,10 @@ const FilterCheckbox = ({ onCheckboxChange, isLoading, isChecked }) => {
                 className="filter-checkbox__input"
                 id="filter-checkbox"
                 type="checkbox"
-                onChange={(e) => onCheckboxChange(e.target.checked)}
+                onChange={handleCheckboxToggle}
+                // onChange={(e) => onCheckboxChange(e.target.checked)}
                 disabled={isLoading ? true : false}
-                checked={isChecked} />
+                checked={isCheckBoxChecked} />
                 <span className="filter-checkbox__text">Короткометражки</span>
             </label>
         </div>

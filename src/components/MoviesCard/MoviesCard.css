@@ -15,8 +15,7 @@
     padding: 18px;
     justify-content: space-between;
     align-items: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    text-wrap: nowrap;
 }
 
 .movies-card__title {
@@ -25,6 +24,8 @@
     font-weight: 500;
     line-height: 18px;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .movies-card__duration {

@@ -137,3 +137,16 @@ export const deleteMovie = (movieId) => {
     })
     .then(validateResponse);
 }
+
+// проверка токена, чтобы на localhost не вылетать из системы
+export const checkToken = () => {
+        return fetch(`${BASE_URL}/users/me`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(validateResponse)
+    }

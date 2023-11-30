@@ -11,6 +11,8 @@ export const useMoviesRender = () => {
 
     useEffect(() => {
         const handleResize = () => {
+            // с помощью setTimeout уменьшаем количество вызовов функции при изменении размера экрана
+            const handleTimeout = setTimeout(() => {
             // определяем ширину окна браузера (включая панель скролла)
             const windowWidth = window.innerWidth;
             if (windowWidth >= 897) {
@@ -33,7 +35,9 @@ export const useMoviesRender = () => {
                     totalAmountOfMovies: 5,
                 });
             }
-        };
+        }, 300);
+        return () => clearTimeout(handleTimeout); // очищаем таймер при след. вызове     
+    };
         handleResize();
 
         // добавляем обработчик события resize для обновления параметров отображения карточек

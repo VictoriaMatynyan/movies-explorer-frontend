@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 // импортируем компоненты
 import Main from '../Main/Main';
@@ -24,8 +24,7 @@ function App() {
   // пустой массив для всех фильмов с сервера и для сохранённых фильмов
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  // // создаём стейт для чекбокса
-  // const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [foundMovies, setFoundMovies] = useState([]);
   // стейт для сохранения фильмов
   const [isSaved, setIsSaved] = useState(false);
   // стейт для серверных ошибок
@@ -37,20 +36,30 @@ function App() {
   
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   loggedIn &&
-  //   mainApi.getUserInfo()
-  //   .then((userData) => {
-  //     setCurrentUser(userData);
-  //   })
-  //   .catch((err) => {
-  //     console.log(`Ошибка хука на выдачу данных: ${err}`);
-  //   });
-  // }, [loggedIn]);
+  const checkToken = useCallback(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      mainApi
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            // остаёмся в профиле после перезагрузки страницы на Localhost:3000
+            localStorage.setItem('loggedIn', 'true');
+          }
+        })
+        .catch((err) => {
+          console.log(`Ошибка проверки токена: ${err}`);
+        });
+    }
+  }, []);
+
   useEffect(() => {
+    checkToken();
     loggedIn &&
     Promise.all([mainApi.getUserInfo(), mainApi.getMovies()])
     .then(([userData, savedMoviesData]) => {
+      setLoggedIn(true);
       setCurrentUser(userData);
       setSavedMovies(savedMoviesData);
       // сохраняем в localStorage фильмы
@@ -59,7 +68,7 @@ function App() {
     .catch((err) => {
       console.log(`Ошибка хука на выдачу данных: ${err}`);
     });
-  }, [loggedIn]);
+  }, [loggedIn, checkToken]);
 
   const handleRegistration = async (name, email, password) => {
     setErrorMessage('');
@@ -91,6 +100,7 @@ function App() {
       const data = await mainApi.login(email, password);
       if (data.message) {
         setLoggedIn(true);
+        localStorage.setItem('token', 'true');
         navigate('/movies', { replace: true });
       }
     } catch (err) {
@@ -104,6 +114,7 @@ function App() {
   const handleLogOut = async () => {
     try {
       await mainApi.logout();
+      localStorage.clear();
       setLoggedIn(false);
       setCurrentUser({});
       navigate('/', {replace: true});
@@ -129,21 +140,59 @@ function App() {
   }
 
   // получаем доступ ко всем фильмам
-  const handleSearchAndFindMovies = async () => {
+  const handleSearchAndFindMovies = async (movieSearchQuery) => {
     setErrorMessage('');
     setIsLoading(true);
     try {
-      const data = await moviesApi.getMovies();
-      setMovies(data);
+      if (!JSON.parse(localStorage.getItem('allMoviesGallery'))) {
+        const allMoviesGallery = await moviesApi.getMovies();
+        localStorage.setItem('allMoviesGallery', JSON.stringify(allMoviesGallery));
+      }
+      localStorage.setItem('movieSearchQuery', movieSearchQuery);
+      // убираем зависимость от регистра у запроса
+      const movieQuery = movieSearchQuery.toLowerCase().trim();
+      const foundMovies = JSON.parse(localStorage.getItem('allMoviesGallery')).filter((movie) => {
+        const movieNameRUToLowerCase = movie.nameRU.toLowerCase().trim();
+        const movieNameENToLowerCase = movie.nameEN.toLowerCase().trim();
+        return (
+          movieNameRUToLowerCase.includes(movieQuery.toLowerCase().trim()) ||
+          movieNameENToLowerCase.includes(movieQuery.toLowerCase().trim())
+        )
+      })
+      setFoundMovies(foundMovies);
+      const checkboxState = localStorage.getItem('checkboxState');
+      if (checkboxState === 'true') {
+        const filterFoundMovies = foundMovies.filter((movie) => movie.duration <= 40);
+        setMovies(filterFoundMovies);
+      } else {
+        setMovies(foundMovies);
+      }
+      setIsSucceeded(true);
     } catch(err) {
       console.log(`Ошибка получения фильмов: ${err}`);
       setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+      setIsSucceeded(false);
     } finally {
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
     }
   }
+  // const handleSearchAndFindMovies = async () => {
+  //   setErrorMessage('');
+  //   setIsLoading(true);
+  //   try {
+  //     const data = await moviesApi.getMovies();
+  //     setMovies(data);
+  //   } catch(err) {
+  //     console.log(`Ошибка получения фильмов: ${err}`);
+  //     setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+  //   } finally {
+  //     setTimeout(() => {
+  //       setIsLoading(false);
+  //     }, 1000);
+  //   }
+  // }
 
   const handleFilterMovies = () => {
     
