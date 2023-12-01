@@ -3,34 +3,28 @@ import { useLocation } from "react-router-dom";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import "./SearchForm.css";
 
-const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, isChecked }) => {
+const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, errorMessage }) => {
     const location = useLocation();
     // стейт для хранения значения поискового запроса
     const [movieQuery, setMovieQuery] = useState('');
-    // const [isMovieSaved, setIsMovieSaved] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
         if (location.pathname === '/movies') {
             const movieSearchQuery = localStorage.getItem('movieSearchQuery');
+            const checkboxState = localStorage.getItem('checkboxState');
             if (movieSearchQuery) {
                 setMovieQuery(movieSearchQuery);
             }
-            // setMovieQuery(localStorage.getItem('movieSearchQuery'));
+            setIsChecked(checkboxState === 'true');
         }
     }, [location.pathname]);
 
-    // функция поиска фильмов Movies отличается от SavedMovies
     function handleSubmit(e) {
         e.preventDefault();
         if (location.pathname === '/movies') {
-            if (!movieQuery) { 
-                setErrorMessage('Нужно ввести ключевое слово');
-            } else {
-                onSearchSubmit(movieQuery);
-                setErrorMessage('');
-                localStorage.setItem('movieSearchQuery', movieQuery);
-            }
+            onSearchSubmit(movieQuery);
+            localStorage.setItem('movieSearchQuery', movieQuery);
         } else {
             onSearchSubmit(movieQuery);
             localStorage.setItem('movieSearchQuery', movieQuery);
@@ -63,13 +57,14 @@ const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, isChecked }) 
                     >
                         Поиск
                     </button>
-                    <span className="search-form__error">{errorMessage}</span>
                 </form>
             </div>
+            <span className="search-form__error">{!movieQuery ? "Нужно ввести ключевое слово" : errorMessage}</span>
             <FilterCheckbox
-                onCheckboxChange={onCheckboxFilter}
+                onCheckboxFilter={onCheckboxFilter}
                 isLoading={isLoading}
-                isChecked={isChecked} />
+                isChecked={isChecked}
+            />
         </section>
     )
 }

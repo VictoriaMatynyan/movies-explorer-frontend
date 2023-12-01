@@ -25,6 +25,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(JSON.parse(localStorage.getItem('checkboxState')));
   // стейт для сохранения фильмов
   const [isSaved, setIsSaved] = useState(false);
   // стейт для серверных ошибок
@@ -159,11 +160,12 @@ function App() {
           movieNameENToLowerCase.includes(movieQuery.toLowerCase().trim())
         )
       })
+      localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
       setFoundMovies(foundMovies);
       const checkboxState = localStorage.getItem('checkboxState');
       if (checkboxState === 'true') {
-        const filterFoundMovies = foundMovies.filter((movie) => movie.duration <= 40);
-        setMovies(filterFoundMovies);
+        const filteredFoundMovies = foundMovies.filter((movie) => movie.duration <= 40);
+        setMovies(filteredFoundMovies);
       } else {
         setMovies(foundMovies);
       }
@@ -178,24 +180,12 @@ function App() {
       }, 1000);
     }
   }
-  // const handleSearchAndFindMovies = async () => {
-  //   setErrorMessage('');
-  //   setIsLoading(true);
-  //   try {
-  //     const data = await moviesApi.getMovies();
-  //     setMovies(data);
-  //   } catch(err) {
-  //     console.log(`Ошибка получения фильмов: ${err}`);
-  //     setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-  //   } finally {
-  //     setTimeout(() => {
-  //       setIsLoading(false);
-  //     }, 1000);
-  //   }
-  // }
 
-  const handleFilterMovies = () => {
-    
+  const handleFilterMovies = (isChecked) => {
+    localStorage.setItem('checkboxState', JSON.stringify(isChecked));
+    const foundMovies = JSON.parse(localStorage.getItem('foundMovies'));
+    const filteredFoundMovies = isChecked ? foundMovies.filter((movie) => movie.duration <= 40) : foundMovies;
+    setMovies(filteredFoundMovies);
   }
 
   function handleCleanServerError() {
@@ -217,7 +207,8 @@ function App() {
           element={<ProtectedRouteElement
             element={Movies}
             loggedIn={loggedIn}
-            movies={movies}
+            // movies={movies}
+            movies={foundMovies}
             onSearchSubmit={handleSearchAndFindMovies}
             onMovieSave
             onMovieDelete
@@ -232,7 +223,14 @@ function App() {
           path="/saved-movies"
           element={<ProtectedRouteElement
             element={SavedMovies}
-            loggedIn={loggedIn} />
+            loggedIn={loggedIn}
+            movies={savedMovies}
+            onSearchSubmit
+            onMovieDelete
+            isLoading={isLoading}
+            isSucceeded={isSucceeded}
+            errorMessage={errorMessage}
+            onCheckboxFilter={handleFilterMovies} />
           }
         />
         <Route
