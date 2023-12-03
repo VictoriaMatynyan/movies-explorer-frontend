@@ -26,8 +26,6 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
-  // стейт для сохранения фильмов
-  const [isSaved, setIsSaved] = useState(false);
   // стейт для серверных ошибок
   const [errorMessage, setErrorMessage] = useState('');
   // стейт для индикаторов загрузки запросов, в т.ч. фильмов
@@ -225,7 +223,10 @@ function App() {
   }
 
   const handleFilterSavedMovies = (isChecked) => {
-    
+    localStorage.setItem('checkboxState', JSON.stringify(isChecked));
+    const savedMoviesFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
+    const filteredSavedMovies = isChecked ? savedMoviesFromLocalStorage.filter((movie) => movie.duration <= 40) : savedMoviesFromLocalStorage;
+    setSavedMovies(filteredSavedMovies);
   }
 
     const handleSaveMovie = async (movie) => {
@@ -254,10 +255,18 @@ function App() {
         }
     }
 
-  const handleDeleteMovie = (movie) => {
-    
+ 
+  const handleDeleteMovie = async (movieId) => {
+    try {
+      await mainApi.deleteMovie(movieId);
+      // создаём новый массив сохранённых фильмов за исключением фильма с переданным movieId
+      const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== movieId);
+      localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+      setSavedMovies(updatedSavedMovies);
+    } catch (err) {
+      console.log(`Ошибка удаления фильма: ${err}`);
+    }
   }
-
 
   function handleCleanServerError() {
     setErrorMessage('');

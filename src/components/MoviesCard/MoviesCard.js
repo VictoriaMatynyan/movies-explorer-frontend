@@ -5,8 +5,8 @@ import "./MoviesCard.css";
 import { BEATFILM_BASE_URL } from "../../utils/urls";
 
 const MoviesCard = ({ movieCard, savedMovies, isSaved, onMovieSave, onMovieDelete }) => {
-    const [movieToBeDeleted, setMovieToBeDeleted] = useState('');
-    const [isMovieInSaved, setIsMovieInSaved] = useState(isSaved ? true : false);
+    const [movieToBeDeleted, setMovieToBeDeleted] = useState(null);
+    const [isMovieInSaved, setIsMovieInSaved] = useState(isSaved);
     const location = useLocation();
 
     useEffect(() => {
@@ -16,24 +16,18 @@ const MoviesCard = ({ movieCard, savedMovies, isSaved, onMovieSave, onMovieDelet
 
     // функция сохранения фильмов
     function onMovieCardSave() {
-        if (isMovieInSaved) {
-            onMovieDelete(movieCard);
-            // onMovieDelete(movieToBeDeleted);
-            setIsMovieInSaved(false);
-        } else {
-            onMovieSave(movieCard);
+            onMovieSave(movieCard || movieCard._id);
             const savedMoviesFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies')) || [];
             localStorage.setItem('savedMovies', JSON.stringify([...savedMoviesFromLocalStorage, { movieId: movieCard.id }]));
             setIsMovieInSaved(true);
-        }        
     };
 
     // функция удаления фильма
     function onMovieCardDelete() {
-        onMovieDelete(movieCard);
-        setIsMovieInSaved(false);
+        onMovieDelete(movieToBeDeleted || movieCard._id);
+        setIsMovieInSaved(!isSaved);
     }
-
+    
     // переводим минуты в часы и минуты
     function getTimeFromMins(mins) {
         let hours = Math.trunc(mins/60);
