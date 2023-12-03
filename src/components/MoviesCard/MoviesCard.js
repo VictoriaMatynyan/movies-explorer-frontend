@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
 // изображения приходят с сервера с относительным URL, поэтому добавляем к ним URL сервера
 import { BEATFILM_BASE_URL } from "../../utils/urls";
 
-const MoviesCard = ({ movieCard, isSaved, onMovieSave, onMovieDelete }) => {
+const MoviesCard = ({ movieCard, savedMovies, isSaved, onMovieSave, onMovieDelete }) => {
+    const [movieToBeDeleted, setMovieToBeDeleted] = useState('');
+    const [isMovieInSaved, setIsMovieInSaved] = useState(isSaved ? true : false);
+    const location = useLocation();
+
+    useEffect(() => {
+        const savedMovie = savedMovies && savedMovies.find((savedMovie) => savedMovie?.movieId === movieCard.id);
+        setMovieToBeDeleted(savedMovie?._id);
+    }, [savedMovies, movieCard.id]);
+
     // функция сохранения фильмов
     function onMovieCardSave() {
-        onMovieSave(movieCard);
+        if (isMovieInSaved) {
+            onMovieDelete(movieCard);
+            // onMovieDelete(movieToBeDeleted);
+            setIsMovieInSaved(false);
+        } else {
+            onMovieSave(movieCard);
+            const savedMoviesFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies')) || [];
+            localStorage.setItem('savedMovies', JSON.stringify([...savedMoviesFromLocalStorage, { movieId: movieCard.id }]));
+            setIsMovieInSaved(true);
+        }        
     };
 
     // функция удаления фильма
     function onMovieCardDelete() {
         onMovieDelete(movieCard);
+        setIsMovieInSaved(false);
     }
 
     // переводим минуты в часы и минуты
@@ -26,8 +45,6 @@ const MoviesCard = ({ movieCard, isSaved, onMovieSave, onMovieDelete }) => {
         }
     };
 
-    const location = useLocation();
-
     return (
         <article className="movies-card">
             <div className="movies-card__info">
@@ -36,22 +53,22 @@ const MoviesCard = ({ movieCard, isSaved, onMovieSave, onMovieDelete }) => {
             </div>
             <a className="movies-card__trailer-link" href={movieCard.trailerLink} target="_blank" rel="noreferrer">
                 <img
-                className="movies-card__image" src={isSaved ? movieCard.image.url : `${BEATFILM_BASE_URL}${movieCard.image.url}`}
+                className="movies-card__image" src={location.pathname === '/saved-movies' ? movieCard.image : `${BEATFILM_BASE_URL}${movieCard.image.url}`}
                 alt={`Постер к фильму ${movieCard.nameRU}, он же обложка карточки с ним `} />
             </a>
             {location.pathname === '/movies' ? (
                 <button
-                className={`movies-card__save-button ${!isSaved ? "movies-card__save-button_inactive" : "movies-card__save-button_active"}`}
+                className={`movies-card__save-button ${!isMovieInSaved ? "movies-card__save-button_inactive" : "movies-card__save-button_active"}`}
                 type="button"
-                onClick={isSaved ? onMovieCardDelete : onMovieCardSave}
+                onClick={isMovieInSaved ? onMovieCardDelete : onMovieCardSave}
             >
-                {!isSaved ? "Сохранить" : ""}
+                {!isMovieInSaved ? "Сохранить" : ""}
                 </button>
             ) : location.pathname === '/saved-movies' && (
                 <button
                 className="movies-card__delete-button"
                 type="button"
-                onMovieDelete={onMovieCardDelete}
+                onClick={onMovieCardDelete}
             >
                 </button>
             )}

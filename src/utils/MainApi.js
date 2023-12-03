@@ -108,7 +108,7 @@ export const addMovie = (
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: JSON.stringify(
             nameRU,
             nameEN,
             country,
@@ -120,7 +120,7 @@ export const addMovie = (
             trailerLink,
             thumbnail,
             movieId,
-        })
+        )
     })
     .then(validateResponse);
 };

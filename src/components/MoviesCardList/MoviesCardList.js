@@ -11,16 +11,18 @@ const MoviesCardList = ({
     onMovieDelete,
     savedMovies,
     isLoading,
+    isMovieInSaved,
     isSucceeded,
     errorMessage }) => {
     const location = useLocation();
     const { moviesRenderScheme, setMoviesRenderScheme } = useMoviesRender();
+
     // проверяем, сохранён ли фильм (это влияет на состояние кнопки "Сохранить")
     // savedMovies - массив сохранённых фильмов, movie - объект фильма
     function checkIsSaved(savedMovies, movie) {
-        return savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+        return location.pathname === '/movies' ? savedMovies.find((savedMovie) => savedMovie.movieId === movie.id) : false;
     }
-    
+
     const onShowMoreClick = () => {
         const windowWidth = window.innerWidth;
         if (windowWidth >= 1280) {
@@ -51,11 +53,13 @@ const MoviesCardList = ({
                     <div className="movies-elements__container">
                     {movies.slice(0, moviesRenderScheme.totalAmountOfMovies).map((movie) => (
                         <MoviesCard
-                            key={movie.id}
+                            key={movie.id || movie._id}
                             movieCard={movie}
+                            isMovieInSaved={isMovieInSaved}
                             isSaved={checkIsSaved(savedMovies, movie)}
                             onMovieSave={onMovieSave}
                             onMovieDelete={onMovieDelete}
+                            savedMovies={savedMovies}
                         />
                     ))}
                     </div>

@@ -8,27 +8,32 @@ const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, errorMessage 
     // стейт для хранения значения поискового запроса
     const [movieQuery, setMovieQuery] = useState('');
     const [isChecked, setIsChecked] = useState(false);
+    // стейт для работы с ошибками
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     useEffect(() => {
-        if (location.pathname === '/movies') {
-            const movieSearchQuery = localStorage.getItem('movieSearchQuery');
-            const checkboxState = localStorage.getItem('checkboxState');
-            if (movieSearchQuery) {
-                setMovieQuery(movieSearchQuery);
-            }
-            setIsChecked(checkboxState === 'true');
+        const checkboxState = localStorage.getItem('checkboxState');
+        // разделяем поисковую строку для всех и сохранённых фильмов и
+        // определяем нужный нам ключ для поиска в зависимости от страницы
+        const storedMovieQuery = location.pathname === '/movies' ?
+            localStorage.getItem('movieSearchQuery') :
+            localStorage.getItem('savedMovieSearchQuery');
+
+        if (storedMovieQuery) {
+            setMovieQuery(storedMovieQuery);
         }
+        setIsChecked(checkboxState === 'true');
     }, [location.pathname]);
 
     function handleSubmit(e) {
         e.preventDefault();
         if (location.pathname === '/movies') {
+            const storageKey = 'movieSearchQuery';
             onSearchSubmit(movieQuery);
-            localStorage.setItem('movieSearchQuery', movieQuery);
-        } else {
-            onSearchSubmit(movieQuery);
-            localStorage.setItem('movieSearchQuery', movieQuery);
+            localStorage.setItem(storageKey, movieQuery);
         }
+        onSearchSubmit(movieQuery);
+        setIsSubmitted(true);
     };
 
     return (
@@ -37,6 +42,7 @@ const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, errorMessage 
                 <form
                 className="search-form__form"
                 name="search-form"
+                noValidate
                 onSubmit={handleSubmit}>
                     <label className="search-form__label" htmlFor="search-form">
                         <input
@@ -46,7 +52,7 @@ const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, errorMessage 
                             placeholder="Фильм"
                             autoComplete="off"
                             required
-                            value={movieQuery || ""}
+                            value={movieQuery}
                             onChange={(e) => setMovieQuery(e.target.value)}
                         />
                     </label>
@@ -54,12 +60,13 @@ const SearchForm = ({ onSearchSubmit, onCheckboxFilter, isLoading, errorMessage 
                         className="search-form__button"
                         type="submit"
                         aria-label="Кнопка поиска фильмов"
+                        disabled={!movieQuery || isLoading}
                     >
-                        Поиск
+                        {isLoading ? "Ищу..." : "Поиск"}
                     </button>
                 </form>
             </div>
-            <span className="search-form__error">{!movieQuery ? "Нужно ввести ключевое слово" : errorMessage}</span>
+            <span className="search-form__error">{isSubmitted && movieQuery === '' ? "Нужно ввести ключевое слово" : errorMessage}</span>
             <FilterCheckbox
                 onCheckboxFilter={onCheckboxFilter}
                 isLoading={isLoading}
