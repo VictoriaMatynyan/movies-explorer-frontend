@@ -2,6 +2,8 @@
 
 The frontend part of the graduation work ['Movie Explorer'](https://github.com/VictoriaMatynyan/movies-explorer-api) performed while studying at [Yandex Praktikum](https://practicum.yandex.ru/) as a web-developer. 'Movie Explorer' is an interactive web service where one can find movies, save the favourite ones in a personal account and manage them further.
 
+[Pull request link](https://github.com/VictoriaMatynyan/movies-explorer-frontend/pull/2)
+
 ## Technologies applied
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
