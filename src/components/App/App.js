@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 // импортируем компоненты
 import Main from '../Main/Main';
@@ -38,26 +38,19 @@ function App() {
   
   const navigate = useNavigate();
 
-  const checkToken = useCallback(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      mainApi
-        .checkToken(token)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            // остаёмся в профиле после перезагрузки страницы на Localhost:3000
-            localStorage.setItem('loggedIn', 'true');
-          }
-        })
-        .catch((err) => {
-          console.log(`Ошибка проверки токена: ${err}`);
-        });
-    }
+  useEffect(() => {
+    mainApi.checkToken()
+    .then((data) => {
+        if (data) {
+          setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.error('Ошибка проверки токена', err);
+      });
   }, []);
 
   useEffect(() => {
-    checkToken();
     loggedIn &&
     Promise.all([mainApi.getUserInfo(), mainApi.getMovies()])
     .then(([userData, savedMoviesData]) => {
@@ -69,7 +62,7 @@ function App() {
     .catch((err) => {
       console.log(`Ошибка хука на выдачу данных: ${err}`);
     });
-  }, [loggedIn, checkToken]);
+  }, [loggedIn]);
 
   const handleRegistration = async (name, email, password) => {
     setErrorMessage('');
@@ -100,7 +93,6 @@ function App() {
       const data = await mainApi.login(email, password);
       if (data.message) {
         setLoggedIn(true);
-        localStorage.setItem('token', 'true');
         navigate('/movies', { replace: true });
       }
     } catch (err) {
@@ -134,13 +126,11 @@ function App() {
     setIsLoading(true);
     try {
       const data = await mainApi.editUserInfo({name, email});
-      // setInfoTooltipOpen(true);
       setIsSucceeded(true);
       setCurrentUser(data);
     } catch(err)  {
       console.log(`Ошибка загрузки данных пользователя: ${err}`);
       setErrorMessage('Пользователь с указанными данными уже существует');
-      // setIsSucceeded(false);
       setInfoTooltipOpen(true);
     } finally {
       setInfoTooltipOpen(true);
