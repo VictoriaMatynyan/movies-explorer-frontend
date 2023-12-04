@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 // импортируем компоненты
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -30,10 +30,11 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
   // стейт для индикаторов загрузки запросов, в т.ч. фильмов
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogginOut, setIsLogginOut] = useState(false);
   // стейт для статусов запросов
   const [isSucceeded, setIsSucceeded] = useState(false);
-
-  const location = useLocation();
+  // стейт для тултипа
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   
   const navigate = useNavigate();
 
@@ -70,14 +71,6 @@ function App() {
     });
   }, [loggedIn, checkToken]);
 
-  // помещаем фильмы в savedMovies
-  useEffect(() => {
-    const savedMoviesData = JSON.parse(localStorage.getItem('savedMovies'));
-    if (savedMoviesData && location.pathname === '/saved-movies') {
-      setSavedMovies(savedMoviesData);
-    }
-  }, [location.pathname]);
-
   const handleRegistration = async (name, email, password) => {
     setErrorMessage('');
     try {
@@ -87,8 +80,7 @@ function App() {
       setIsLoading(true); // устанавливаем состояние isLoading в true при отправке данных на сервер
       const data = await mainApi.register(name, email, password);
       if (data) {
-        setLoggedIn(true);
-        navigate('/movies', { replace: true });
+        handleSignIn(email, password);
       }
     } catch(err) {
         console.log(`Ошибка регистрации: ${err}`);
@@ -103,7 +95,7 @@ function App() {
     if (!email || !password) {
       return;
     }
-    setIsLoading(true); 
+    setIsLoading(true);
     try {
       const data = await mainApi.login(email, password);
       if (data.message) {
@@ -120,14 +112,20 @@ function App() {
   };
 
   const handleLogOut = async () => {
+    setIsLogginOut(true);
     try {
       await mainApi.logout();
       localStorage.clear();
       setLoggedIn(false);
       setCurrentUser({});
+      setFoundMovies([]);
+      setErrorMessage('');
+      setMovies([]);
       navigate('/', {replace: true});
     } catch (err) {
       console.log(`Ошибка при выходе из системы: ${err}`);
+    } finally {
+      setIsLogginOut(false);
     }
   }
 
@@ -136,11 +134,17 @@ function App() {
     setIsLoading(true);
     try {
       const data = await mainApi.editUserInfo({name, email});
+      // setInfoTooltipOpen(true);
+      setIsSucceeded(true);
       setCurrentUser(data);
     } catch(err)  {
       console.log(`Ошибка загрузки данных пользователя: ${err}`);
       setErrorMessage('Пользователь с указанными данными уже существует');
+      // setIsSucceeded(false);
+      setInfoTooltipOpen(true);
     } finally {
+      setInfoTooltipOpen(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
@@ -191,6 +195,9 @@ function App() {
   const handleFilterMovies = (isChecked) => {
     localStorage.setItem('checkboxState', JSON.stringify(isChecked));
     const foundMovies = JSON.parse(localStorage.getItem('foundMovies'));
+    if (!foundMovies) {
+      return;
+    }
     const filteredFoundMovies = isChecked ? foundMovies.filter((movie) => movie.duration <= 40) : foundMovies;
     setMovies(filteredFoundMovies);
   }
@@ -209,7 +216,7 @@ function App() {
         )
       })
       setSavedMovies(foundSavedMovies);
-      const checkboxState = localStorage.getItem('checkboxState');
+      const checkboxState = localStorage.getItem('savedMoviesCheckboxState');
       if (checkboxState === 'true') {
         const filteredFoundSavedMovies = foundSavedMovies.filter((movie) => movie.duration <= 40);
         localStorage.setItem('movies', JSON.stringify(filteredFoundSavedMovies));
@@ -223,7 +230,7 @@ function App() {
   }
 
   const handleFilterSavedMovies = (isChecked) => {
-    localStorage.setItem('checkboxState', JSON.stringify(isChecked));
+    localStorage.setItem('savedMoviesCheckboxState', JSON.stringify(isChecked));
     const savedMoviesFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
     const filteredSavedMovies = isChecked ? savedMoviesFromLocalStorage.filter((movie) => movie.duration <= 40) : savedMoviesFromLocalStorage;
     setSavedMovies(filteredSavedMovies);
@@ -271,6 +278,24 @@ function App() {
   function handleCleanServerError() {
     setErrorMessage('');
   }
+
+  const closeAllPopups = () => {
+    setInfoTooltipOpen(false);
+  }
+
+  // закрываем попапы по Esc
+  useEffect(() => {
+    const closeWithEsc = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    document.addEventListener('keydown', closeWithEsc);
+    // удаляем событие при размонтировании компонента
+    return () => {
+      document.removeEventListener('keydown', closeWithEsc);
+    }
+  }, [isInfoTooltipOpen]); 
 
   return (
     <>
@@ -321,7 +346,11 @@ function App() {
             onLogOut={handleLogOut}
             errorMessage={errorMessage}
             onCleanError={handleCleanServerError}
-            isLoading={isLoading} />
+            isLoading={isLoading}
+            isLogginOut={isLogginOut}
+            isSucceeded={isSucceeded}
+            isOpen={isInfoTooltipOpen}
+            onClose={closeAllPopups} />
           }
         />
         <Route

@@ -4,9 +4,21 @@ import Header from "../Header/Header";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useFormValidation from "../../hooks/useFormValidation";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import './Profile.css';
 
-const Profile = ({ loggedIn, handleUpdateUser, onLogOut, errorMessage, onCleanError, isLoading }) => {
+const Profile = ({
+    loggedIn,
+    handleUpdateUser,
+    onLogOut,
+    errorMessage,
+    onCleanError,
+    isLoading,
+    isLogginOut,
+    isOpen,
+    onClose,
+    isSucceeded
+}) => {
     const { values, errors, formValid, handleInputChange, resetFormValues } = useFormValidation();
 
     const currentUser = React.useContext(CurrentUserContext);
@@ -54,7 +66,6 @@ const Profile = ({ loggedIn, handleUpdateUser, onLogOut, errorMessage, onCleanEr
                             type="text"
                             value={values.name || ""}
                             onChange={handleInputChangeWithLoading}
-                            // onChange={handleInputChange}
                             name="name"
                             autoComplete="off"
                         />
@@ -67,7 +78,6 @@ const Profile = ({ loggedIn, handleUpdateUser, onLogOut, errorMessage, onCleanEr
                             type="email"
                             value={values.email || ""}
                             onChange={handleInputChangeWithLoading}
-                            // onChange={handleInputChange}
                             name="email"
                             required
                             autoComplete="off"
@@ -84,9 +94,16 @@ const Profile = ({ loggedIn, handleUpdateUser, onLogOut, errorMessage, onCleanEr
                     </button>
                 </form>
                 <button className="profile__logout-button" onClick={onLogOut}>
-                    {isLoading ? "Выход..." : "Выйти из аккаунта"}
+                    {isLogginOut ? "Выход..." : "Выйти из аккаунта"}
                 </button>
                 </section>
+                <InfoTooltip
+                isOpen={isOpen}
+                onClose={onClose}
+                isSucceeded={isSucceeded}
+                successMessage='Изменение данных прошло успешно'
+                failMessage='Что-то пошло не так, повторите попытку'
+                />
             </main>
         </>
     )

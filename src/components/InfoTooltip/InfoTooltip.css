@@ -1,0 +1,102 @@
+.popup {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    z-index: 350;
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.7s ease, visibility 0.2s ease;
+    -webkit-transition: opacity 0.7s ease, visibility 0.2s ease;
+    -moz-transition: opacity 0.7s ease, visibility 0.2s ease;
+    -ms-transition: opacity 0.7s ease, visibility 0.2s ease;
+    -o-transition: opacity 0.7s ease, visibility 0.2s ease;
+}
+
+.popup-tooltip {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup_opened {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup__container {
+    width: 33.6vw;
+    max-width: 430px;
+    min-width: 282px;
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin: 15px auto 0;
+    position: relative;
+    color: #000;
+    box-sizing: border-box;
+    padding: 34px 36px 37px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 1);
+}
+
+.popup__close-button {
+    border: none;
+    outline: none;
+    background: url(../../images/close_btn.svg) no-repeat;
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 32px;
+    height: 32px;
+    background-size: 100%;
+    transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    cursor: pointer;
+    padding: 0;
+}
+
+.popup__close-button:hover {
+    opacity: 0.8;
+}
+
+.popup-tooltip__image {
+    max-width: 120px;
+    max-height: 120px;
+    display: flex;
+    margin: 20px auto 40px;
+}
+
+.popup-tooltip__title {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 29.05px;
+    text-align: center;
+    max-width: 358px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+}
+
+@media screen and (max-width: 897px) {
+    .popup__container {
+        padding: 25px 22px;
+        margin-top: 12px;
+    }
+}
+
+@media screen and (max-width: 364px) {
+    .popup__close-button {
+        right: 0;
+        top: -36px;
+        width: 20px;
+        height: 20px;
+    }
+}

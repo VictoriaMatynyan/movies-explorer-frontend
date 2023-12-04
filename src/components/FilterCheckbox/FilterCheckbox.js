@@ -4,7 +4,6 @@ import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ onCheckboxFilter, isLoading }) => {
     const location = useLocation();
-    // const [isCheckBoxChecked, setIsCheckboxChecked] = useState(false);
     const [isCheckBoxChecked, setIsCheckboxChecked] = useState(() => {
         if (location.pathname === '/movies') {
             return localStorage.getItem('checkboxState') === 'true';
