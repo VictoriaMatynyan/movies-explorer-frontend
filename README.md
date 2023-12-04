@@ -4,18 +4,20 @@ The frontend part of the graduation work ['Movie Explorer'](https://github.com/V
 
 ## Technologies applied
 
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)]
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]
-[![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)]
-[![JSON](https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white)]
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)]
-[![Eslint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)]
+[HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+[CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+[JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+[JSON](https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
+[React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+[Eslint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)
+[Webpack](https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=Webpack&logoColor=white)
+[NPM](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
++ `React + JSX`
++ `React hooks`
 + `Creare React App (CRA)`
 + `Grid and Flexbox Layouts`
 + `Media queries`
 + `Adaptive and responsive web design (1280px, 768px, 320px)`
-+ `CSS Pseudo-classes`
-+ `Form validation using useState hook`
 + `OOP`
 
 ## Project milestones
@@ -29,7 +31,7 @@ The frontend part of the graduation work ['Movie Explorer'](https://github.com/V
 * `git clone git@github.com:VictoriaMatynyan/movies-explorer-frontend.git` — clone the repository using SSH code;
   -  `git clone https://github.com/VictoriaMatynyan/movies-explorer-frontend.git` — if you'd like to clone the repo via https-link;
 * `npm install` — install the dependencies;
-* `npm run start` — launch the server;   
+* `npm run start` — launch the server / frontend;   
 * `npm run dev` — launch the server with hot-reload.
 
 ## Project links
