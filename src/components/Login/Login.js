@@ -8,7 +8,7 @@ import AuthNav from "../AuthNav/AuthNav";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Login.css';
 
-const Login = ({ onLogin, errorMessage, onCleanError, isLoading, loggedIn }) => {
+const Login = ({ onLogin, logErrorMessage, onCleanError, isLoading, loggedIn }) => {
     const { values, errors, formValid, handleInputChange } = useFormValidation();
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const Login = ({ onLogin, errorMessage, onCleanError, isLoading, loggedIn }) => 
     // если висит серверная ошибка, очищаем её через onCleanError
     function handleInputChangeWithLoading(e) {
         handleInputChange(e);
-        if (errorMessage) {
+        if (logErrorMessage) {
             onCleanError();
         }
     }
@@ -44,7 +44,7 @@ const Login = ({ onLogin, errorMessage, onCleanError, isLoading, loggedIn }) => 
             buttonText={isLoading ? "Вход в систему..." : "Войти"}
             disabled={!formValid || isLoading}
             buttonClassName={`login__submit-button ${!formValid || isLoading ? "login__submit-button_disabled" : ""}`}
-            errorMessage={errorMessage}
+            errorMessage={logErrorMessage}
             onCleanError={onCleanError}
             isLoading={isLoading}
             >

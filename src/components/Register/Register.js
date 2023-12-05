@@ -8,7 +8,7 @@ import AuthNav from "../AuthNav/AuthNav";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Register.css';
 
-const Register = ({ onRegiser, errorMessage, onCleanError, isLoading, loggedIn }) => {
+const Register = ({ onRegiser, regErrorMessage, onCleanError, isLoading, loggedIn }) => {
     const { values, errors, formValid, handleInputChange } = useFormValidation();
     const navigate = useNavigate();
     
@@ -21,7 +21,7 @@ const Register = ({ onRegiser, errorMessage, onCleanError, isLoading, loggedIn }
     // если висит серверная ошибка, очищаем её через onCleanError
     function handleInputChangeWithLoading(e) {
         handleInputChange(e);
-        if (errorMessage) {
+        if (regErrorMessage) {
             onCleanError();
         }
     }
@@ -44,7 +44,7 @@ const Register = ({ onRegiser, errorMessage, onCleanError, isLoading, loggedIn }
             buttonText={isLoading ? "Регистрация..." : "Зарегистрироваться"}
             disabled={!formValid || isLoading}
             buttonClassName={`register__submit-button ${!formValid || isLoading ? "register__submit-button_disabled" : ""}`}
-            errorMessage={errorMessage}
+            errorMessage={regErrorMessage}
             onCleanError={onCleanError}
             isLoading={isLoading}>
                 <label className="register__form-label">
@@ -54,7 +54,6 @@ const Register = ({ onRegiser, errorMessage, onCleanError, isLoading, loggedIn }
                     type="text"
                     value={values.name || ''}
                     onChange={handleInputChangeWithLoading}
-                    // onChange={handleInputChange}
                     required
                     name="name"
                     autoComplete="off"
@@ -68,7 +67,6 @@ const Register = ({ onRegiser, errorMessage, onCleanError, isLoading, loggedIn }
                             type="email"
                             value={values.email || ''}
                             onChange={handleInputChangeWithLoading}
-                            // onChange={handleInputChange}
                             required
                             name="email"
                             autoComplete="off"
@@ -82,7 +80,6 @@ const Register = ({ onRegiser, errorMessage, onCleanError, isLoading, loggedIn }
                             type="password"
                             value={values.password || ''}
                             onChange={handleInputChangeWithLoading}
-                            // onChange={handleInputChange}
                             required
                             name="password"
                             autoComplete="off"

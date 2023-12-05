@@ -29,6 +29,8 @@ function App() {
   const [foundMovies, setFoundMovies] = useState([]);
   // стейт для серверных ошибок
   const [errorMessage, setErrorMessage] = useState('');
+  const [regErrorMessage, setRegErrorMessage] = useState('');
+  const [logErrorMessage, setLogErrorMessage] = useState('');
   // стейт для индикаторов загрузки запросов, в т.ч. фильмов
   const [isLoading, setIsLoading] = useState(false);
   const [isLogginOut, setIsLogginOut] = useState(false);
@@ -48,23 +50,6 @@ function App() {
       setSavedMovies(savedMoviesData);
     }
   }, [location.pathname]);
-
-  // const checkToken = useCallback(() => {
-  //   const loggedIn = localStorage.getItem('loggedIn');
-  //   if (loggedIn) {
-  //     mainApi.checkToken()
-  //       .then((data) => {
-  //         if (data) {
-  //           setLoggedIn(true);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //   } else {
-  //     setIsLoading(false);
-  //   }
-  // }, []);
 
   const checkToken = useCallback(async () => {
     try {
@@ -97,7 +82,7 @@ function App() {
   }, [loggedIn, checkToken]);
 
   const handleRegistration = async (name, email, password) => {
-    setErrorMessage('');
+    setRegErrorMessage('');
     try {
       if (!name || !email || !password) {
         return;
@@ -109,14 +94,14 @@ function App() {
       }
     } catch(err) {
         console.log(`Ошибка регистрации: ${err}`);
-        setErrorMessage('Пожалуйста, убедитесь, что регистрируетесь впервые, или введите новые данные');
+        setRegErrorMessage('Пожалуйста, убедитесь, что регистрируетесь впервые, или введите новые данные');
       } finally {
         setIsLoading(false);
       }
   };
 
   const handleSignIn = async(email, password) => {
-    setErrorMessage('');
+    setLogErrorMessage('');
     if (!email || !password) {
       return;
     }
@@ -130,7 +115,7 @@ function App() {
       }
     } catch (err) {
       console.log(`Ошибка авторизации: ${err}`);
-      setErrorMessage('Пожалуйста, введите корректные данные или зарегистрируйтесь');
+      setLogErrorMessage('Пожалуйста, введите корректные данные или зарегистрируйтесь');
     } finally {
       setIsLoading(false);
     }
@@ -300,6 +285,8 @@ function App() {
 
   function handleCleanServerError() {
     setErrorMessage('');
+    setRegErrorMessage('');
+    setLogErrorMessage('')
   }
 
   const closeAllPopups = () => {
@@ -380,7 +367,7 @@ function App() {
           path="/signup"
           element={<Register
             onRegiser={handleRegistration}
-            errorMessage={errorMessage}
+            regErrorMessage={regErrorMessage}
             onCleanError={handleCleanServerError}
             isLoading={isLoading}
             loggedIn={loggedIn} />}
@@ -389,7 +376,7 @@ function App() {
           path="/signin"
           element={<Login
             onLogin={handleSignIn}
-            errorMessage={errorMessage}
+            logErrorMessage={logErrorMessage}
             onCleanError={handleCleanServerError}
             isLoading={isLoading}
             loggedIn={loggedIn} />}
