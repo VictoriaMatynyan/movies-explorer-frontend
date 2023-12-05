@@ -57,7 +57,6 @@
 
 @media screen and (max-width: 1151px) {
     .movies-elements__container {
-        /* grid-template-columns: repeat(auto-fit, minmax(273px, 1fr)); */
         grid-template-columns: repeat(3, minmax(273px, 1fr));
     }
 }
@@ -65,11 +64,10 @@
 @media screen and (max-width: 1024px) {
     .movies-elements__container {
         grid-template-columns: repeat(3, minmax(231px, 1fr));
-        /* grid-template-columns: repeat(auto-fit, minmax(231px, 1fr)); */
     }
 }
 
-@media screen and (max-width: 898px) {
+@media screen and (max-width: 897px) {
     .movies-elements__container {
         grid-template-columns: repeat(2, minmax(231px, 1fr));
     }

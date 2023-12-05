@@ -12,14 +12,29 @@ const MoviesCard = ({ movieCard, savedMovies, isSaved, onMovieSave, onMovieDelet
     useEffect(() => {
         const savedMovie = savedMovies && savedMovies.find((savedMovie) => savedMovie?.movieId === movieCard.id);
         setMovieToBeDeleted(savedMovie?._id);
-    }, [savedMovies, movieCard.id]);
+        setIsMovieInSaved(isSaved);
+    }, [savedMovies, movieCard.id, isSaved]);
+
+    // делаем кнопку сохранения фильма активной всегда, не зависимо от поиска на странице сохранёнок
+    useEffect(() => {
+        const savingButtonState = (movie) => {
+          const savedMoviesList = JSON.parse(localStorage.getItem('savedMovies')) || [];
+          // проверяем, содержится ли id карточки в массиве savedMoviesList
+          if (savedMoviesList.some((savedMovie) => savedMovie.movieId === movie.id)) {
+            // если содержится, делаем кнопку "Сохранено" активной
+            setIsMovieInSaved(true);
+          }
+        };
+        savingButtonState(movieCard);
+      }, [movieCard]);
 
     // функция сохранения фильмов
     function onMovieCardSave() {
             onMovieSave(movieCard || movieCard._id);
             const savedMoviesFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies')) || [];
             localStorage.setItem('savedMovies', JSON.stringify([...savedMoviesFromLocalStorage, { movieId: movieCard.id }]));
-            setIsMovieInSaved(true);
+            // setIsMovieInSaved(true);
+            setIsMovieInSaved(isSaved);
     };
 
     // функция удаления фильма
@@ -52,7 +67,8 @@ const MoviesCard = ({ movieCard, savedMovies, isSaved, onMovieSave, onMovieDelet
             </a>
             {location.pathname === '/movies' ? (
                 <button
-                className={`movies-card__save-button ${!isMovieInSaved ? "movies-card__save-button_inactive" : "movies-card__save-button_active"}`}
+                className={`movies-card__save-button ${isMovieInSaved ? "movies-card__save-button_active" : "movies-card__save-button_inactive"}`}
+                // className={`movies-card__save-button ${!isMovieInSaved ? "movies-card__save-button_inactive" : "movies-card__save-button_active"}`}
                 type="button"
                 onClick={isMovieInSaved ? onMovieCardDelete : onMovieCardSave}
             >

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useForm } from "react-hook-form";
 import Logo from "../Logo/Logo";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
@@ -7,8 +8,9 @@ import AuthNav from "../AuthNav/AuthNav";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Register.css';
 
-const Register = ({ onRegiser, errorMessage, onCleanError, isLoading }) => {
+const Register = ({ onRegiser, errorMessage, onCleanError, isLoading, loggedIn }) => {
     const { values, errors, formValid, handleInputChange } = useFormValidation();
+    const navigate = useNavigate();
     
     function handleSubmit (e) {
         e.preventDefault();
@@ -23,6 +25,11 @@ const Register = ({ onRegiser, errorMessage, onCleanError, isLoading }) => {
             onCleanError();
         }
     }
+
+    // запрещаем авторизованному пользователю переходить на страницу регистрации
+    useEffect(() => {
+        loggedIn && navigate('/movies', { replace: true });
+    })
 
     return (
         <section className="register">

@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { useMoviesRender } from '../../hooks/useMoviesRender';
+import { ZERO } from '../../utils/cardsConfig';
+import { DESKTOP_SCREEN_RESOLUTION } from '../../utils/windowWidthConstants';
 import './MoviesCardList.css';
 
 const MoviesCardList = ({
@@ -11,7 +13,7 @@ const MoviesCardList = ({
     onMovieDelete,
     savedMovies,
     isLoading,
-    isMovieInSaved,
+    // isMovieInSaved,
     isSucceeded,
     errorMessage }) => {
     const location = useLocation();
@@ -25,20 +27,15 @@ const MoviesCardList = ({
 
     const onShowMoreClick = () => {
         const windowWidth = window.innerWidth;
-        if (windowWidth >= 1280) {
+        if (windowWidth >= DESKTOP_SCREEN_RESOLUTION) {
             setMoviesRenderScheme({
                 ...moviesRenderScheme,
                 totalAmountOfMovies: moviesRenderScheme.totalAmountOfMovies + 3
             });
-        } else if (windowWidth >= 768 && windowWidth < 1280) {
+        } else if (windowWidth < DESKTOP_SCREEN_RESOLUTION) {
             setMoviesRenderScheme({
                 ...moviesRenderScheme,
                 totalAmountOfMovies: moviesRenderScheme.totalAmountOfMovies + 2
-            });
-        } else if (windowWidth <= 568) {
-            setMoviesRenderScheme({
-                ...moviesRenderScheme,
-                totalAmountOfMovies: moviesRenderScheme.totalAmountOfMovies + 1
             });
         }
     }
@@ -49,13 +46,13 @@ const MoviesCardList = ({
             <Preloader />
             ) : (
                 <>
-                {movies.length > 0 ? (
+                {movies.length > ZERO ? (
                     <div className="movies-elements__container">
                     {movies.slice(0, moviesRenderScheme.totalAmountOfMovies).map((movie) => (
                         <MoviesCard
                             key={movie.id || movie._id}
                             movieCard={movie}
-                            isMovieInSaved={isMovieInSaved}
+                            // isMovieInSaved={isMovieInSaved}
                             isSaved={checkIsSaved(savedMovies, movie)}
                             onMovieSave={onMovieSave}
                             onMovieDelete={onMovieDelete}

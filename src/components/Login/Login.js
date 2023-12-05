@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom"; 
 // import { useForm } from "react-hook-form";
 import Logo from "../Logo/Logo";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
@@ -7,8 +8,9 @@ import AuthNav from "../AuthNav/AuthNav";
 import useFormValidation from "../../hooks/useFormValidation";
 import './Login.css';
 
-const Login = ({ onLogin, errorMessage, onCleanError, isLoading }) => {
+const Login = ({ onLogin, errorMessage, onCleanError, isLoading, loggedIn }) => {
     const { values, errors, formValid, handleInputChange } = useFormValidation();
+    const navigate = useNavigate();
 
     function handleSubmit (e) {
         e.preventDefault();
@@ -23,6 +25,11 @@ const Login = ({ onLogin, errorMessage, onCleanError, isLoading }) => {
             onCleanError();
         }
     }
+
+    // запрещаем авторизованному пользователю переходить на логин
+    useEffect(() => {
+        loggedIn && navigate('/movies', { replace: true });
+    })
 
     return (
         <main className="login">
@@ -47,7 +54,6 @@ const Login = ({ onLogin, errorMessage, onCleanError, isLoading }) => {
                 className={`login__form-input ${errors.email ? "login__form-input_type_error" : ""}`}
                 value={values.email || ''}
                 onChange={handleInputChangeWithLoading}
-                // onChange={handleInputChange}
                 type="email"
                 name="email"
                 required
@@ -61,7 +67,6 @@ const Login = ({ onLogin, errorMessage, onCleanError, isLoading }) => {
                 className={`login__form-input ${errors.password ? "login__form-input_type_error" : ""}`}
                 value={values.password || ''}
                 onChange={handleInputChangeWithLoading}
-                // onChange={handleInputChange}
                 type="password"
                 name="password"
                 required

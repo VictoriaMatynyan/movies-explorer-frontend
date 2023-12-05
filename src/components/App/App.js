@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 // импортируем компоненты
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -11,6 +11,7 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { BEATFILM_BASE_URL } from '../../utils/urls';
+import { SHORT_MOVIE_LENGTH } from '../../utils/cardsConfig';
 // импортируем все API
 import * as mainApi from '../../utils/MainApi';
 import * as moviesApi from '../../utils/MoviesApi';
@@ -38,19 +39,50 @@ function App() {
   
   const navigate = useNavigate();
 
-  useEffect(() => {
-    mainApi.checkToken()
-    .then((data) => {
-        if (data) {
-          setLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        console.error('Ошибка проверки токена', err);
-      });
-  }, []);
+  const location = useLocation();
 
+  // отображаем все сохранённые фильмы каждый раз при переходе на страницу с ними
   useEffect(() => {
+    const savedMoviesData = JSON.parse(localStorage.getItem('savedMovies'));
+    if (savedMoviesData && location.pathname === '/saved-movies') {
+      setSavedMovies(savedMoviesData);
+    }
+  }, [location.pathname]);
+
+  // const checkToken = useCallback(() => {
+  //   const loggedIn = localStorage.getItem('loggedIn');
+  //   if (loggedIn) {
+  //     mainApi.checkToken()
+  //       .then((data) => {
+  //         if (data) {
+  //           setLoggedIn(true);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       })
+  //   } else {
+  //     setIsLoading(false);
+  //   }
+  // }, []);
+
+  const checkToken = useCallback(async () => {
+    try {
+      const loggedIn = localStorage.getItem('loggedIn');
+      if (loggedIn) {
+        await mainApi.checkToken();
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    } catch (err) {
+      console.log(err);
+      setLoggedIn(false);
+    }
+  }, []);
+  
+  useEffect(() => {
+    checkToken();
     loggedIn &&
     Promise.all([mainApi.getUserInfo(), mainApi.getMovies()])
     .then(([userData, savedMoviesData]) => {
@@ -62,7 +94,7 @@ function App() {
     .catch((err) => {
       console.log(`Ошибка хука на выдачу данных: ${err}`);
     });
-  }, [loggedIn]);
+  }, [loggedIn, checkToken]);
 
   const handleRegistration = async (name, email, password) => {
     setErrorMessage('');
@@ -92,6 +124,7 @@ function App() {
     try {
       const data = await mainApi.login(email, password);
       if (data.message) {
+        localStorage.setItem('loggedIn', true);
         setLoggedIn(true);
         navigate('/movies', { replace: true });
       }
@@ -165,7 +198,7 @@ function App() {
       setFoundMovies(foundMovies);
       const checkboxState = localStorage.getItem('checkboxState');
       if (checkboxState === 'true') {
-        const filteredFoundMovies = foundMovies.filter((movie) => movie.duration <= 40);
+        const filteredFoundMovies = foundMovies.filter((movie) => movie.duration <= SHORT_MOVIE_LENGTH);
         setMovies(filteredFoundMovies);
       } else {
         setMovies(foundMovies);
@@ -188,7 +221,7 @@ function App() {
     if (!foundMovies) {
       return;
     }
-    const filteredFoundMovies = isChecked ? foundMovies.filter((movie) => movie.duration <= 40) : foundMovies;
+    const filteredFoundMovies = isChecked ? foundMovies.filter((movie) => movie.duration <= SHORT_MOVIE_LENGTH) : foundMovies;
     setMovies(filteredFoundMovies);
   }
 
@@ -208,7 +241,7 @@ function App() {
       setSavedMovies(foundSavedMovies);
       const checkboxState = localStorage.getItem('savedMoviesCheckboxState');
       if (checkboxState === 'true') {
-        const filteredFoundSavedMovies = foundSavedMovies.filter((movie) => movie.duration <= 40);
+        const filteredFoundSavedMovies = foundSavedMovies.filter((movie) => movie.duration <= SHORT_MOVIE_LENGTH);
         localStorage.setItem('movies', JSON.stringify(filteredFoundSavedMovies));
         setSavedMovies(filteredFoundSavedMovies);
       } else {
@@ -222,7 +255,7 @@ function App() {
   const handleFilterSavedMovies = (isChecked) => {
     localStorage.setItem('savedMoviesCheckboxState', JSON.stringify(isChecked));
     const savedMoviesFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
-    const filteredSavedMovies = isChecked ? savedMoviesFromLocalStorage.filter((movie) => movie.duration <= 40) : savedMoviesFromLocalStorage;
+    const filteredSavedMovies = isChecked ? savedMoviesFromLocalStorage.filter((movie) => movie.duration <= SHORT_MOVIE_LENGTH) : savedMoviesFromLocalStorage;
     setSavedMovies(filteredSavedMovies);
   }
 
@@ -349,7 +382,8 @@ function App() {
             onRegiser={handleRegistration}
             errorMessage={errorMessage}
             onCleanError={handleCleanServerError}
-            isLoading={isLoading} />}
+            isLoading={isLoading}
+            loggedIn={loggedIn} />}
         />
         <Route
           path="/signin"
@@ -357,7 +391,8 @@ function App() {
             onLogin={handleSignIn}
             errorMessage={errorMessage}
             onCleanError={handleCleanServerError}
-            isLoading={isLoading} />}
+            isLoading={isLoading}
+            loggedIn={loggedIn} />}
         />
         <Route
           path="*"
