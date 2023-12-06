@@ -33,7 +33,6 @@ const MoviesCard = ({ movieCard, savedMovies, isSaved, onMovieSave, onMovieDelet
             onMovieSave(movieCard || movieCard._id);
             const savedMoviesFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies')) || [];
             localStorage.setItem('savedMovies', JSON.stringify([...savedMoviesFromLocalStorage, { movieId: movieCard.id }]));
-            // setIsMovieInSaved(true);
             setIsMovieInSaved(isSaved);
     };
 
@@ -68,7 +67,6 @@ const MoviesCard = ({ movieCard, savedMovies, isSaved, onMovieSave, onMovieDelet
             {location.pathname === '/movies' ? (
                 <button
                 className={`movies-card__save-button ${isMovieInSaved ? "movies-card__save-button_active" : "movies-card__save-button_inactive"}`}
-                // className={`movies-card__save-button ${!isMovieInSaved ? "movies-card__save-button_inactive" : "movies-card__save-button_active"}`}
                 type="button"
                 onClick={isMovieInSaved ? onMovieCardDelete : onMovieCardSave}
             >

@@ -17,7 +17,6 @@ const Movies = ({
   isSucceeded,
   errorMessage,
   onCheckboxFilter,
-  // isMovieInSaved,
 }) => {
   // локальный стейт с фильмами для отображения.
   // будет обновляться при изменении данных о фильмах из localStorage или результатов поиска
@@ -77,7 +76,6 @@ const Movies = ({
           onMovieSave={onMovieSave}
           onMovieDelete={onMovieDelete}
           savedMovies={savedMovies}
-          // isMovieInSaved={isMovieInSaved}
           isLoading={isLoading}
           isSucceeded={isSucceeded}
           errorMessage={errorMessage} />
