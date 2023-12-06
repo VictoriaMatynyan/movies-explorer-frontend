@@ -13,7 +13,6 @@ const MoviesCardList = ({
     onMovieDelete,
     savedMovies,
     isLoading,
-    // isMovieInSaved,
     isSucceeded,
     errorMessage }) => {
     const location = useLocation();
@@ -26,7 +25,8 @@ const MoviesCardList = ({
     }
 
     const onShowMoreClick = () => {
-        const windowWidth = window.innerWidth;
+        if (location.pathname === '/movies') {
+            const windowWidth = window.innerWidth;
         if (windowWidth >= DESKTOP_SCREEN_RESOLUTION) {
             setMoviesRenderScheme({
                 ...moviesRenderScheme,
@@ -38,6 +38,8 @@ const MoviesCardList = ({
                 totalAmountOfMovies: moviesRenderScheme.totalAmountOfMovies + 2
             });
         }
+        }
+        
     }
 
     return (
@@ -48,24 +50,35 @@ const MoviesCardList = ({
                 <>
                 {movies.length > ZERO ? (
                     <div className="movies-elements__container">
-                    {movies.slice(0, moviesRenderScheme.totalAmountOfMovies).map((movie) => (
+                    {location.pathname === '/movies' ? (
+                     movies.slice(0, moviesRenderScheme.totalAmountOfMovies).map((movie) => (
                         <MoviesCard
                             key={movie.id || movie._id}
                             movieCard={movie}
-                            // isMovieInSaved={isMovieInSaved}
                             isSaved={checkIsSaved(savedMovies, movie)}
                             onMovieSave={onMovieSave}
                             onMovieDelete={onMovieDelete}
                             savedMovies={savedMovies}
                         />
-                    ))}
+                        ))
+                        ) : (
+                        movies.map((movie) => (
+                            <MoviesCard
+                            key={movie.id || movie._id}
+                            movieCard={movie}
+                            isSaved={checkIsSaved(savedMovies, movie)}
+                            onMovieSave={onMovieSave}
+                            onMovieDelete={onMovieDelete}
+                            savedMovies={savedMovies}
+                        />
+                        ))
+                    )}
                     </div>
                     ) : (
-                    <p className="movies-elements__not-found">{isSucceeded ? "Ничего не найдено" : errorMessage}</p>
-                )}
-                    {movies.length > moviesRenderScheme.totalAmountOfMovies && (
+                        <p className="movies-elements__not-found">{isSucceeded ? "Ничего не найдено" : errorMessage}</p>
+                    )}
+                    {location.pathname === '/movies' && movies.length > moviesRenderScheme.totalAmountOfMovies && (
                         <div className="movies-elements__button-container">
-                        {location.pathname === '/movies' ? (
                             <button
                             className="movies-elements__button"
                             type="button"
@@ -73,10 +86,10 @@ const MoviesCardList = ({
                             >
                             Еще
                             </button>
-                            ) : ''}
-                        </div>)}
+                        </div>
+                        )}
                     </> 
-            )}
+                )}
         </section>
     )
 }

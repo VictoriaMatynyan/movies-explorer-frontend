@@ -24,22 +24,6 @@ const Movies = ({
   const [displayedMovies, setDisplayedMovies] = useState([]);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
-  // const [isMovieInSaved, setIsMovieInSaved] = useState(false);
-
-  // // делаем кнопку сохранения фильма активной всегда, если фильм уже сохранён
-  //   const isMovieInSaved = (movie) => {
-  //     // if (!savedMovies) {
-  //     //   return false;
-  //     // }
-  //     if (localStorage.getItem('savedMovies')) {
-  //       const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-  //       return savedMovies.some((savedMovie) => savedMovie.movieId === movie.id);
-  //     }
-  //     return false;
-  //     // savedMovies.some((savedMovie) => savedMovie.movieId === movie._id);
-  // };
-  
-
   useEffect(() => {
     setIsCheckboxChecked(localStorage.getItem('checkboxState') === 'true');
     const checkboxState = localStorage.getItem('checkboxState');
