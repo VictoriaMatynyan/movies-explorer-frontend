@@ -63,7 +63,6 @@ function App() {
     } catch (err) {
       console.log(err);
       setLoggedIn(false);
-      localStorage.clear();
     }
   }, []);
   
@@ -322,7 +321,7 @@ function App() {
           path="/movies"
           element={<ProtectedRouteElement
             element={Movies}
-            loggedIn={loggedIn}
+            loggedIn={true}
             movies={foundMovies}
             onSearchSubmit={handleSearchAllMovies}
             onMovieSave={handleSaveMovie}
@@ -338,7 +337,7 @@ function App() {
           path="/saved-movies"
           element={<ProtectedRouteElement
             element={SavedMovies}
-            loggedIn={loggedIn}
+            loggedIn={true}
             movies={savedMovies}
             onSearchSubmit={handleSearchSavedMovies}
             onMovieDelete={handleDeleteMovie}
@@ -352,7 +351,7 @@ function App() {
           path="/profile"
           element={<ProtectedRouteElement
             element={Profile}
-            loggedIn={loggedIn}
+            loggedIn={true}
             handleUpdateUser={handleUpdateUser}
             onLogOut={handleLogOut}
             errorMessage={errorMessage}
