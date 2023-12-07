@@ -1,148 +1,91 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useForm } from "react-hook-form";
 import Logo from "../Logo/Logo";
 import GreetingTitle from "../GreetingTitle/GreetingTitle";
 import Form from "../Form/Form";
 import AuthNav from "../AuthNav/AuthNav";
+import useFormValidation from "../../hooks/useFormValidation";
 import './Register.css';
 
-const Register = ({ onFormSubmit }) => {
-    const [userData, setUserData] = useState({
-        regName: '',
-        regEmail: '',
-        regPassword: '',
-    });
-
-    const [dataDirty, setDataDirty] = useState(false);
-    const [nameError, setNameError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-
-    // создаём состояние, которое отвечает за валидность формы в целом
-    const [formValid, setFormValid] = useState(false);
-
-    // регулярки для email и пароля
-    const regExEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    const regExPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-    // логика валидации поля Имени
-    const validateName = (e) => {
-        setUserData({...userData, regName: e.target.value});
-        if (!e.target.value) {
-            setNameError('Поле не может быть пустым.');
-        } else if (e.target.value.length < 2) {
-            setNameError('Имя должно содержать минимум 2 символа.');
-        } else if (e.target.value.length > 30) {
-            setNameError('Имя должно содержать максимум 30 символов.');
-        } else {
-            setNameError('');
-        }
-    }
-
-    const validateEmail = (e) => {
-        setUserData({...userData, regEmail: e.target.value});
-        if (!e.target.value.match(regExEmail)) {
-            setEmailError('Некорректный формат E-mail.');
-        } else if (!e.target.value) {
-            setEmailError('Поле не может быть пустым.');
-        } else {
-            setEmailError('');
-        }
-    }
-
-    const validatePassword = (e) => {
-        setUserData({...userData, regPassword: e.target.value});
-        if (!e.target.value.match(regExPassword)) {
-            setPasswordError('Пароль должен содержать минимум 8 символов.');
-        } else if (!e.target.value) {
-            setPasswordError('Поле не может быть пустым.');
-        } else {
-            setPasswordError('');
-        }
-    }
-
-    function handleChangeName (e) {
-        setUserData({...userData, regName: e.target.value});
-        setDataDirty(true);
-        validateName(e);
-    }
-
-    function handleChangeEmail(e) {
-        setUserData({...userData, regEmail: e.target.value});
-        setDataDirty(true);
-        validateEmail(e);
-    }
-
-    function handleChangePassword(e) {
-        setUserData({...userData, regPassword: e.target.value});
-        setDataDirty(true);
-        validatePassword(e);
-    }
+const Register = ({ onRegiser, regErrorMessage, onCleanError, isLoading, loggedIn }) => {
+    const { values, errors, formValid, handleInputChange } = useFormValidation();
+    const navigate = useNavigate();
     
     function handleSubmit (e) {
         e.preventDefault();
-        if (!nameError && !emailError && !passwordError) {
-            // передаём значения управляемых компонентов во внешний обработчик,
-            // при условии, что валидация формы прошла успешно
-            onFormSubmit(userData);
+        onRegiser(values.name, values.email, values.password);
+    }
+
+    // отслеживаем изменения в инпутах
+    // если висит серверная ошибка, очищаем её через onCleanError
+    function handleInputChangeWithLoading(e) {
+        handleInputChange(e);
+        if (regErrorMessage) {
+            onCleanError();
         }
     }
 
-    // валидация формы
+    // запрещаем авторизованному пользователю переходить на страницу регистрации
     useEffect(() => {
-        if(nameError || emailError || passwordError || !userData.regName || !userData.regEmail || !userData.regPassword) {
-            setFormValid(false);
-        } else {
-            setFormValid(true);
-        }
-    }, [nameError, emailError, passwordError, userData]);
+        loggedIn && navigate('/movies', { replace: true });
+    })
 
     return (
         <section className="register">
             <div className="register__container">
-            <Logo className={"register__logo"} />
+            <Logo className="register__logo" />
             <GreetingTitle
             className="register__greeting-title"
             greetingText="Добро пожаловать!"
             />
             <Form
             onSubmit={handleSubmit}
-            buttonText={"Зарегистрироваться"}
-            disabled={!formValid}
-            buttonClassName={`register__submit-button ${!formValid && "register__submit-button_disabled"}`}>
+            buttonText={isLoading ? "Регистрация..." : "Зарегистрироваться"}
+            disabled={!formValid || isLoading}
+            buttonClassName={`register__submit-button ${!formValid || isLoading ? "register__submit-button_disabled" : ""}`}
+            errorMessage={regErrorMessage}
+            onCleanError={onCleanError}
+            isLoading={isLoading}>
                 <label className="register__form-label">
                     Имя
                     <input
-                    className={`register__form-input ${(dataDirty && nameError) && "register__form-input_type_error"}`}
-                    type={"text"}
-                    value={userData.regName}
-                    onChange={handleChangeName}
+                    className={`register__form-input ${errors.name ? "register__form-input_type_error": ""}`}
+                    type="text"
+                    value={values.name || ''}
+                    onChange={handleInputChangeWithLoading}
+                    required
+                    name="name"
                     autoComplete="off"
                     />
                     </label>
-                    <span className="register__error-span register__error-span_active">{(dataDirty && nameError) && nameError}</span>
+                    <span className="register__error-span register__error-span_active">{errors.name || ""}</span>
                     <label className="register__form-label">
                         E-mail
                         <input
-                            className={`register__form-input ${(dataDirty && emailError) && "register__form-input_type_error"}`}
+                            className={`register__form-input ${errors.email ? "register__form-input_type_error" : ""}`}
                             type="email"
-                            value={userData.regEmail}
-                            onChange={handleChangeEmail}
+                            value={values.email || ''}
+                            onChange={handleInputChangeWithLoading}
+                            required
+                            name="email"
                             autoComplete="off"
                         />
                     </label>
-                    <span className="register__error-span register__error-span_active">{(dataDirty && emailError) && emailError}</span>
+                    <span className="register__error-span register__error-span_active">{errors.email || ""}</span>
                     <label className="register__form-label">
                         Пароль
                         <input
-                            className={`register__form-input ${(dataDirty && passwordError) && "register__form-input_type_error"}`}
+                            className={`register__form-input ${errors.password ? "register__form-input_type_error" : ""}`}
                             type="password"
-                            value={userData.regPassword}
-                            onChange={handleChangePassword}
+                            value={values.password || ''}
+                            onChange={handleInputChangeWithLoading}
+                            required
+                            name="password"
                             autoComplete="off"
                         />
                     </label>
-                    <span className="register__error-span register__error-span_active">{(dataDirty && passwordError) && passwordError}</span>
+                    <span className="register__error-span register__error-span_active">{errors.password || ""}</span>
             </Form>
             <AuthNav authText={"Уже зарегистрированы?"} linkText={"Войти"} />
             </div>

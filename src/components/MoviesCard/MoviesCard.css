@@ -15,6 +15,7 @@
     padding: 18px;
     justify-content: space-between;
     align-items: center;
+    text-wrap: nowrap;
 }
 
 .movies-card__title {
@@ -23,6 +24,8 @@
     font-weight: 500;
     line-height: 18px;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .movies-card__duration {
@@ -37,6 +40,11 @@
     width: 100%;
     height: 200px;
     object-fit: cover;
+}
+
+.movies-card__trailer-link {
+    text-decoration: none;
+    height: 200px;
 }
 
 .movies-card__save-button, .movies-card__delete-button {
@@ -79,6 +87,15 @@
     .movies-card__image {
         width: 100%;
         height: 190px;
+    }
+}
+
+@media screen and (max-width: 710px) {
+    .movies-card__title {
+        font-size: 11px;
+    }
+    .movies-card__duration {
+        font-size: 11px;
     }
 }
 

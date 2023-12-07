@@ -1,72 +1,89 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
-// import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { movies } from '../../utils/movies';
 import Footer from '../Footer/Footer';
+import { SHORT_MOVIE_LENGTH } from '../../utils/cardsConfig';
 import './Movies.css';
 
-const Movies = ({ loggedIn }) => {
-    // const [moviesLoading, setMoviesLoading] = useState(false);
-    // const firstTwelveMovies = movies.slice(0, 12);
-    
-    const [displayedMovies, setDisplayedMovies] = useState(12); // по умолчанию отображаем 12 карточки
+const Movies = ({
+  loggedIn,
+  movies,
+  onSearchSubmit,
+  onMovieSave,
+  onMovieDelete,
+  savedMovies,
+  isLoading,
+  isSucceeded,
+  errorMessage,
+  onCheckboxFilter,
+}) => {
+  // локальный стейт с фильмами для отображения.
+  // будет обновляться при изменении данных о фильмах из localStorage или результатов поиска
+  const [displayedMovies, setDisplayedMovies] = useState([]);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
-    useEffect(() => {
-      const handleInitialResize = () => {
-        if (window.innerWidth <= 1280 && window.innerWidth > 769) {
-          setDisplayedMovies(12); // если ширина экрана <= 1280px, отображаем 12 карточек
-        } else if (window.innerWidth <= 769 && window.innerWidth > 321) {
-          setDisplayedMovies(8);
-        } else if (window.innerWidth <= 320) {
-          setDisplayedMovies(5);
-        }
-      };
-      // инициализируем при загрузке страницы
-      handleInitialResize();
-      const handleResize = () => handleInitialResize();
-      // добавляем слушатель события изменения размера экрана при монтировании компонента
-      window.addEventListener('resize', handleResize);
-      // удаляем слушатель при размонтировании компонента
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []); // вызываем useEffect только при монтировании компонента
+  useEffect(() => {
+    setIsCheckboxChecked(localStorage.getItem('checkboxState') === 'true');
+    const checkboxState = localStorage.getItem('checkboxState');
+    // избегаем бесконечного цикла, обновляя состояние чекбокса только при изменении
+    if (checkboxState === 'true' && !isCheckboxChecked) {
+      onCheckboxFilter(true);
+    } else if (checkboxState !== 'true' && isCheckboxChecked) {
+      onCheckboxFilter(false);
+    }
 
+    const updateDisplayedMovies = () => {
+      const foundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];
+      const filterFoundMovies = foundMovies.filter((movie) =>
+        checkboxState === 'true' ? movie.duration <= SHORT_MOVIE_LENGTH : true
+      );
+      setDisplayedMovies(filterFoundMovies);
+    };
 
-    // function handleMoviesLoading() {
-    //     setMoviesLoading(true);
-    // }
+    const handleStorageChange = () => {
+      updateDisplayedMovies();
+    };
 
-    const location = useLocation();
+    window.addEventListener('storage', handleStorageChange);
+    updateDisplayedMovies();
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [onCheckboxFilter, isCheckboxChecked]);
+
+  useEffect(() => {
+    const foundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];
+    const checkboxState = localStorage.getItem('checkboxState');
+    if (movies) {
+      const filteredFoundMovies = checkboxState === 'true' ? foundMovies.filter((movie) => movie.duration <= SHORT_MOVIE_LENGTH) : foundMovies;
+      setDisplayedMovies(filteredFoundMovies);
+    }
+  }, [movies]);
 
     return (
-            loggedIn ? (
-                <>
-                <Header loggedIn={loggedIn} />
-                <main className="movies">
-                  <section className="movies__container">
-                    <SearchForm />
-                    {/* { moviesLoading ? <Preloader /> : '' } */}
-                    <MoviesCardList movies={movies.slice(0, displayedMovies)} />
-                    <div className="movies__button-container">
-                      {location.pathname === '/movies' ? (
-                        <button
-                        className="movies__button"
-                        type="button"
-                        >
-                          Еще
-                        </button>
-                        ) : ''}
-                    </div>
-                  </section>
-                </main>
-                <Footer />
-                </>
-                ) : null
-          )
+      <>
+      <Header loggedIn={loggedIn} />
+      <main className="movies">
+        <section className="movies__container">
+          <SearchForm
+          onSearchSubmit={onSearchSubmit}
+          onCheckboxFilter={onCheckboxFilter}
+          isLoading={isLoading} />
+          <MoviesCardList
+          movies={displayedMovies}
+          onMovieSave={onMovieSave}
+          onMovieDelete={onMovieDelete}
+          savedMovies={savedMovies}
+          isLoading={isLoading}
+          isSucceeded={isSucceeded}
+          errorMessage={errorMessage} />
+        </section>
+      </main>
+      <Footer />
+      </>
+    )
 }
 
 export default Movies;

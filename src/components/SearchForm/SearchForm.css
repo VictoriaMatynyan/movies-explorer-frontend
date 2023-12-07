@@ -45,6 +45,7 @@
 }
 
 .search-form__button {
+    outline: none;
     border: none;
     color: #fff;
     font-size: 14px;
@@ -70,6 +71,16 @@
     opacity: 0.8;
 }
 
+.search-form__error {
+    height: 26px;
+    color: #EE3465;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+}
+
 @media screen and (max-width: 468px) {
     .search-form__container {
         padding: 6px;
@@ -84,5 +95,8 @@
         line-height: 18px;
         padding: 13px 10px; 
         min-width: 80px;     
+    }
+    .search-form__error {
+        padding-top: 30px;
     }
 }
